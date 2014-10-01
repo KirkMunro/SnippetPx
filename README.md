@@ -30,9 +30,9 @@ Using spaces in snippet filenames is supported, but discouraged.
 Not all snippets are appropriate for use in all situations. When in doubt, consult
 the documentation for the snippet to ensure it is appropriate for your use case.
 
-Copyright (c) 2014 Kirk Munro.
+### License and Copyright
 
-### License
+Copyright (c) 2014 Kirk Munro.
 
 This program is free software: you can redistribute it and/or modify it under
 the terms of the GNU General Public License as published by the Free Software
