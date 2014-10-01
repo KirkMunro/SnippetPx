@@ -1,0 +1,296 @@
+﻿<?xml version="1.0"?>
+<ModuleObject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>SnippetPx</Name>
+  <ModuleType>Binary</ModuleType>
+  <Version>1.0.0.0</Version>
+  <Description>The SnippetPx module enhances the snippet experience in PowerShell by offering a new format for Snippets: plain, ordinary ps1 files. These snippets are not just blocks of script that could be injected into a file. They are also invocable! This enables better reuse of commonly used pieces of script that would not otherwise be placed into a PowerShell function, either because the function support in PowerShell won't allow for it to be invoked properly in the current scope, or because it isn't big enough to warrant adding another function to the function pool.</Description>
+  <ModuleClass>Module</ModuleClass>
+  <UseSupports>false</UseSupports>
+  <OverridePostCount>false</OverridePostCount>
+  <FetchPostCount xsi:nil="true" />
+  <Cmdlets>
+    <CmdletObject>
+      <Name>Get-Snippet</Name>
+      <Verb>Get</Verb>
+      <Noun>Snippet</Noun>
+      <GeneralHelp>
+        <Synopsis>Gets the snippets that are available on the local computer.</Synopsis>
+        <Description>The Get-Snippet cmdlet gets the snippets that are available on the local computer.
+
+By default, Get-Snippet returns all snippets that are available on the local computer. To return a filtered list of snippets, you can use the Name parameter to specify the name of the snippets you want to see.</Description>
+        <Notes>When retrieving snippets, the Get-Snippet command looks for snippets in the following folders in the order in which they are listed:
+
+- the current user snippets folder (Documents\WindowsPowerShell\snippets);
+
+- the all users snippets folder (Program Files\WindowsPowerShell\snippets);
+
+- the snippets folder in the SnippetPx module (SnippetPx\snippets);
+
+- the snippets folder in all other modules, in the order in which they are discovered according to the PSModulePath environment variable;
+
+If multiple snippets with the same name exist in different snippets folders, only the first snippet with that name will be returned. To guarantee uniqueness of snippets across modules, snippets specific to a module should use a snippet name prefixed with the module name. For example, a snippet to provision AD users in an ActiveDirectory module could use the filename ActiveDirectory.User.Provision.ps1.
+
+Using spaces in snippet filenames is supported, but discouraged.</Notes>
+        <InputType>None</InputType>
+        <ReturnType>SnippetPx.Snippet</ReturnType>
+      </GeneralHelp>
+      <Syntax>
+        <string>Get-Snippet [[-Name] &lt;String[]&gt;]</string>
+      </Syntax>
+      <Parameters>
+        <ParameterDescription>
+          <Name>Name</Name>
+          <Type>String[]</Type>
+          <AcceptsArray>true</AcceptsArray>
+          <Mandatory>false</Mandatory>
+          <Dynamic>false</Dynamic>
+          <RemainingArgs>false</RemainingArgs>
+          <Pipeline>false</Pipeline>
+          <PipelinePropertyName>false</PipelinePropertyName>
+          <Positional>true</Positional>
+          <Position>0</Position>
+          <Attributes>
+            <string>System.Management.Automation.SupportsWildcardsAttribute</string>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ValidateNotNullOrEmptyAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>The name of the snippet.</Description>
+          <Globbing>true</Globbing>
+        </ParameterDescription>
+      </Parameters>
+      <Examples>
+        <Example>
+          <Name>Example 1</Name>
+          <Cmd>PS C:\&gt; Get-Snippet</Cmd>
+          <Description>This command gets all snippets that are available on the local system.</Description>
+        </Example>
+        <Example>
+          <Name>Example 2</Name>
+          <Cmd>PS C:\&gt; Get-Snippet -Name Module.Initialize</Cmd>
+          <Description>This command gets the Module.Initialize snippet on the local system.</Description>
+        </Example>
+        <Example>
+          <Name>Example 3</Name>
+          <Cmd>PS C:\&gt; Get-Snippet -Name ProxyFunction*</Cmd>
+          <Description>This command gets all snippets on the local system whose name starts with "ProxyFunction".</Description>
+        </Example>
+      </Examples>
+      <RelatedLinks>
+        <RelatedLink>
+          <LinkText>Invoke-Snippet</LinkText>
+        </RelatedLink>
+      </RelatedLinks>
+      <SupportInformation>
+        <ADChecked>false</ADChecked>
+        <RsatChecked>false</RsatChecked>
+        <Ps2Checked>false</Ps2Checked>
+        <Ps3Checked>false</Ps3Checked>
+        <Ps4Checked>false</Ps4Checked>
+        <WinXpChecked>false</WinXpChecked>
+        <WinVistaChecked>false</WinVistaChecked>
+        <Win7Checked>false</Win7Checked>
+        <Win8Checked>false</Win8Checked>
+        <Win81Checked>false</Win81Checked>
+        <Win2003Checked>false</Win2003Checked>
+        <Win2003StdChecked>false</Win2003StdChecked>
+        <Win2003EEChecked>false</Win2003EEChecked>
+        <Win2003DCChecked>false</Win2003DCChecked>
+        <Win2008Checked>false</Win2008Checked>
+        <Win2008StdChecked>false</Win2008StdChecked>
+        <Win2008EEChecked>false</Win2008EEChecked>
+        <Win2008DCChecked>false</Win2008DCChecked>
+        <Win2008R2Checked>false</Win2008R2Checked>
+        <Win2008R2StdChecked>false</Win2008R2StdChecked>
+        <Win2008R2EEChecked>false</Win2008R2EEChecked>
+        <Win2008R2DCChecked>false</Win2008R2DCChecked>
+        <Win2012Checked>false</Win2012Checked>
+        <Win2012StdChecked>false</Win2012StdChecked>
+        <Win2012DCChecked>false</Win2012DCChecked>
+        <Win2012R2Checked>false</Win2012R2Checked>
+        <Win2012R2StdChecked>false</Win2012R2StdChecked>
+        <Win2012R2DCChecked>false</Win2012R2DCChecked>
+      </SupportInformation>
+      <Publish>false</Publish>
+    </CmdletObject>
+    <CmdletObject>
+      <Name>Invoke-Snippet</Name>
+      <Verb>Invoke</Verb>
+      <Noun>Snippet</Noun>
+      <GeneralHelp>
+        <Synopsis>Invokes the specified snippet on the local computer.</Synopsis>
+        <Description>The Invoke-Snippet cmdlet invokes the specified snippet on the local computer.
+
+By default, Invoke-Snippet invokes the specified snippet in the current scope. Use the ChildScope parameter to invoke a snippet in a nested, child scope. To specify the parameters for the snippet, pass a hashtable into the Parameters parameter of the Invoke-Snippet cmdlet. This hashtable will be splatted into the snippet as it is invoked.</Description>
+        <Notes>When invoking snippets, the Invoke-Snippet command looks for snippets in the following folders in the order in which they are listed:
+
+- the current user snippets folder (Documents\WindowsPowerShell\snippets);
+
+- the all users snippets folder (Program Files\WindowsPowerShell\snippets);
+
+- the snippets folder in the SnippetPx module (SnippetPx\snippets);
+
+- the snippets folder in all other modules, in the order in which they are discovered according to the PSModulePath environment variable;
+
+If multiple snippets with the same name exist in different snippets folders, only the first snippet with that name will be invoked. To guarantee uniqueness of snippets across modules, snippets specific to a module should use a snippet name prefixed with the module name. For example, a snippet to provision AD users in an ActiveDirectory module could use the filename ActiveDirectory.User.Provision.ps1.
+
+Using spaces in snippet filenames is supported, but discouraged.
+
+Not all snippets are appropriate for all situations. When in doubt, consult the documentation for the snippet to ensure it is appropriate for your use case.</Notes>
+        <InputType>System.String,SnippetPx.Snippet</InputType>
+        <ReturnType>System.Object</ReturnType>
+      </GeneralHelp>
+      <Syntax>
+        <string>Invoke-Snippet [-Name] &lt;String&gt; [[-Parameters] &lt;Hashtable&gt;] [-ChildScope] [-WhatIf] [-Confirm]</string>
+      </Syntax>
+      <Parameters>
+        <ParameterDescription>
+          <Name>Name</Name>
+          <Type>String</Type>
+          <AcceptsArray>false</AcceptsArray>
+          <Mandatory>true</Mandatory>
+          <Dynamic>false</Dynamic>
+          <RemainingArgs>false</RemainingArgs>
+          <Pipeline>true</Pipeline>
+          <PipelinePropertyName>true</PipelinePropertyName>
+          <Positional>true</Positional>
+          <Position>0</Position>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ValidateNotNullOrEmptyAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>The name of the snippet to invoke.</Description>
+          <Globbing>false</Globbing>
+        </ParameterDescription>
+        <ParameterDescription>
+          <Name>Parameters</Name>
+          <Type>Hashtable</Type>
+          <AcceptsArray>false</AcceptsArray>
+          <Mandatory>false</Mandatory>
+          <Dynamic>false</Dynamic>
+          <RemainingArgs>false</RemainingArgs>
+          <Pipeline>false</Pipeline>
+          <PipelinePropertyName>true</PipelinePropertyName>
+          <Positional>true</Positional>
+          <Position>1</Position>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ValidateNotNullOrEmptyAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>A hashtable of parameters that will be splatted into the snippet as it is invoked.</Description>
+          <Globbing>false</Globbing>
+        </ParameterDescription>
+        <ParameterDescription>
+          <Name>ChildScope</Name>
+          <Type>SwitchParameter</Type>
+          <AcceptsArray>false</AcceptsArray>
+          <Mandatory>false</Mandatory>
+          <Dynamic>false</Dynamic>
+          <RemainingArgs>false</RemainingArgs>
+          <Pipeline>false</Pipeline>
+          <PipelinePropertyName>false</PipelinePropertyName>
+          <Positional>false</Positional>
+          <Position>named</Position>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Invokes the snippet in a nested, child scope. By default snippets are invoked in the current scope.</Description>
+          <Globbing>false</Globbing>
+        </ParameterDescription>
+        <ParameterDescription>
+          <Name>WhatIf</Name>
+          <Type>SwitchParameter</Type>
+          <AcceptsArray>false</AcceptsArray>
+          <Mandatory>false</Mandatory>
+          <Dynamic>false</Dynamic>
+          <RemainingArgs>false</RemainingArgs>
+          <Pipeline>false</Pipeline>
+          <PipelinePropertyName>false</PipelinePropertyName>
+          <Positional>false</Positional>
+          <Position>named</Position>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.AliasAttribute</string>
+          </Attributes>
+          <Aliases>
+            <string>wi</string>
+          </Aliases>
+          <Description>Shows what would happen if the cmdlet was run unhindered. The cmdlet will not invoke a snippet when it is run with this flag.</Description>
+          <Globbing>false</Globbing>
+        </ParameterDescription>
+        <ParameterDescription>
+          <Name>Confirm</Name>
+          <Type>SwitchParameter</Type>
+          <AcceptsArray>false</AcceptsArray>
+          <Mandatory>false</Mandatory>
+          <Dynamic>false</Dynamic>
+          <RemainingArgs>false</RemainingArgs>
+          <Pipeline>false</Pipeline>
+          <PipelinePropertyName>false</PipelinePropertyName>
+          <Positional>false</Positional>
+          <Position>named</Position>
+          <Attributes>
+            <string>System.Management.Automation.AliasAttribute</string>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases>
+            <string>cf</string>
+          </Aliases>
+          <Description>Prompts you for confirmation before invoking a snippet.</Description>
+          <Globbing>false</Globbing>
+        </ParameterDescription>
+      </Parameters>
+      <Examples>
+        <Example>
+          <Name>Example 1</Name>
+          <Cmd>PS C:\&gt; Invoke-Snippet -Name Module.Initialize</Cmd>
+          <Description>This command invokes the Module.Initialize snippet in the current scope. The Module.Initialize snippet will invoke several commands that are very useful and highly recommended when creating script modules.</Description>
+        </Example>
+        <Example>
+          <Name>Example 2</Name>
+          <Cmd>PS C:\&gt; Invoke-Snippet -Name ScriptFile.Import -Parameter @{Path='C:\FilesToImport'}</Cmd>
+          <Description>This command invokes the ScriptFile.Import snippet in the current scope. The ScriptFile.Import snippet will import all files with the extension .ps1 that are found in the C:\FilesToImport folder into the current PowerShell session.</Description>
+        </Example>
+      </Examples>
+      <RelatedLinks>
+        <RelatedLink>
+          <LinkText>Get-Snippet</LinkText>
+        </RelatedLink>
+      </RelatedLinks>
+      <SupportInformation>
+        <ADChecked>false</ADChecked>
+        <RsatChecked>false</RsatChecked>
+        <Ps2Checked>false</Ps2Checked>
+        <Ps3Checked>false</Ps3Checked>
+        <Ps4Checked>false</Ps4Checked>
+        <WinXpChecked>false</WinXpChecked>
+        <WinVistaChecked>false</WinVistaChecked>
+        <Win7Checked>false</Win7Checked>
+        <Win8Checked>false</Win8Checked>
+        <Win81Checked>false</Win81Checked>
+        <Win2003Checked>false</Win2003Checked>
+        <Win2003StdChecked>false</Win2003StdChecked>
+        <Win2003EEChecked>false</Win2003EEChecked>
+        <Win2003DCChecked>false</Win2003DCChecked>
+        <Win2008Checked>false</Win2008Checked>
+        <Win2008StdChecked>false</Win2008StdChecked>
+        <Win2008EEChecked>false</Win2008EEChecked>
+        <Win2008DCChecked>false</Win2008DCChecked>
+        <Win2008R2Checked>false</Win2008R2Checked>
+        <Win2008R2StdChecked>false</Win2008R2StdChecked>
+        <Win2008R2EEChecked>false</Win2008R2EEChecked>
+        <Win2008R2DCChecked>false</Win2008R2DCChecked>
+        <Win2012Checked>false</Win2012Checked>
+        <Win2012StdChecked>false</Win2012StdChecked>
+        <Win2012DCChecked>false</Win2012DCChecked>
+        <Win2012R2Checked>false</Win2012R2Checked>
+        <Win2012R2StdChecked>false</Win2012R2StdChecked>
+        <Win2012R2DCChecked>false</Win2012R2DCChecked>
+      </SupportInformation>
+      <Publish>false</Publish>
+    </CmdletObject>
+  </Cmdlets>
+</ModuleObject>
