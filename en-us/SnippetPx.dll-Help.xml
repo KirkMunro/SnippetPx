@@ -187,20 +187,6 @@ By default, Invoke-Snippet invokes the specified snippet in the current scope. U
 				</maml:description>
 				<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 			</command:parameter>
-			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
-				<maml:name>WhatIf</maml:name>
-				<maml:description>
-					<maml:para>Shows what would happen if the cmdlet was run unhindered. The cmdlet will not invoke a snippet when it is run with this flag.</maml:para>
-				</maml:description>
-				<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
-			</command:parameter>
-			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
-				<maml:name>Confirm</maml:name>
-				<maml:description>
-					<maml:para>Prompts you for confirmation before invoking a snippet.</maml:para>
-				</maml:description>
-				<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
-			</command:parameter>
 		</command:syntaxItem>
 	</command:syntax>
 	<command:parameters>
@@ -232,30 +218,6 @@ By default, Invoke-Snippet invokes the specified snippet in the current scope. U
 			<maml:name>ChildScope</maml:name>
 			<maml:description>
 				<maml:para>Invokes the snippet in a nested, child scope. By default snippets are invoked in the current scope.</maml:para>
-			</maml:description>
-			<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
-			<dev:type>
-				<maml:name>SwitchParameter</maml:name>
-				<maml:uri/>
-			</dev:type>
-			<dev:defaultValue></dev:defaultValue>
-		</command:parameter>
-		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
-			<maml:name>WhatIf</maml:name>
-			<maml:description>
-				<maml:para>Shows what would happen if the cmdlet was run unhindered. The cmdlet will not invoke a snippet when it is run with this flag.</maml:para>
-			</maml:description>
-			<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
-			<dev:type>
-				<maml:name>SwitchParameter</maml:name>
-				<maml:uri/>
-			</dev:type>
-			<dev:defaultValue></dev:defaultValue>
-		</command:parameter>
-		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
-			<maml:name>Confirm</maml:name>
-			<maml:description>
-				<maml:para>Prompts you for confirmation before invoking a snippet.</maml:para>
 			</maml:description>
 			<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 			<dev:type>
