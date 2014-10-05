@@ -141,7 +141,7 @@ Not all snippets are appropriate for all situations. When in doubt, consult the 
         <ReturnType>System.Object</ReturnType>
       </GeneralHelp>
       <Syntax>
-        <string>Invoke-Snippet [-Name] &lt;String&gt; [[-Parameters] &lt;Hashtable&gt;] [-ChildScope] [-WhatIf] [-Confirm]</string>
+        <string>Invoke-Snippet [-Name] &lt;String&gt; [[-Parameters] &lt;Hashtable&gt;] [-ChildScope]</string>
       </Syntax>
       <Parameters>
         <ParameterDescription>
@@ -198,48 +198,6 @@ Not all snippets are appropriate for all situations. When in doubt, consult the 
           </Attributes>
           <Aliases />
           <Description>Invokes the snippet in a nested, child scope. By default snippets are invoked in the current scope.</Description>
-          <Globbing>false</Globbing>
-        </ParameterDescription>
-        <ParameterDescription>
-          <Name>WhatIf</Name>
-          <Type>SwitchParameter</Type>
-          <AcceptsArray>false</AcceptsArray>
-          <Mandatory>false</Mandatory>
-          <Dynamic>false</Dynamic>
-          <RemainingArgs>false</RemainingArgs>
-          <Pipeline>false</Pipeline>
-          <PipelinePropertyName>false</PipelinePropertyName>
-          <Positional>false</Positional>
-          <Position>named</Position>
-          <Attributes>
-            <string>System.Management.Automation.ParameterAttribute</string>
-            <string>System.Management.Automation.AliasAttribute</string>
-          </Attributes>
-          <Aliases>
-            <string>wi</string>
-          </Aliases>
-          <Description>Shows what would happen if the cmdlet was run unhindered. The cmdlet will not invoke a snippet when it is run with this flag.</Description>
-          <Globbing>false</Globbing>
-        </ParameterDescription>
-        <ParameterDescription>
-          <Name>Confirm</Name>
-          <Type>SwitchParameter</Type>
-          <AcceptsArray>false</AcceptsArray>
-          <Mandatory>false</Mandatory>
-          <Dynamic>false</Dynamic>
-          <RemainingArgs>false</RemainingArgs>
-          <Pipeline>false</Pipeline>
-          <PipelinePropertyName>false</PipelinePropertyName>
-          <Positional>false</Positional>
-          <Position>named</Position>
-          <Attributes>
-            <string>System.Management.Automation.AliasAttribute</string>
-            <string>System.Management.Automation.ParameterAttribute</string>
-          </Attributes>
-          <Aliases>
-            <string>cf</string>
-          </Aliases>
-          <Description>Prompts you for confirmation before invoking a snippet.</Description>
           <Globbing>false</Globbing>
         </ParameterDescription>
       </Parameters>

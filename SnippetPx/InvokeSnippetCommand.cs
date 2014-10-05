@@ -10,8 +10,7 @@ namespace SnippetPx
 {
     [Cmdlet(
         VerbsLifecycle.Invoke,
-        "Snippet",
-        SupportsShouldProcess=true
+        "Snippet"
     )]
     [OutputType(typeof(Object))]
     public class InvokeSnippetCommand : SnippetCommand
@@ -50,24 +49,50 @@ namespace SnippetPx
             {
                 throw new FileNotFoundException("The file associated with snippet \"" + Name + "\" was not found.", snippetPath);
             }
-            bool whatifPreference = (bool)SessionState.PSVariable.Get("WhatIfPreference").Value;
-            ConfirmImpact confirmPreference = (ConfirmImpact)SessionState.PSVariable.Get("ConfirmPreference").Value;
-            try
+            string script = "";
+            List<string> missingMandatoryParameters = new List<string>();
+            PowerShell ps = PowerShell.Create(RunspaceMode.CurrentRunspace);
+            ps.AddCommand("Get-Command");
+            ps.AddParameter("Name", snippetPath);
+            var results = ps.Invoke();
+            if (ps.HadErrors)
             {
-                if (MyInvocation.BoundParameters.ContainsKey("WhatIf"))
+                foreach (ErrorRecord error in ps.Streams.Error)
                 {
-                    SessionState.PSVariable.Set("WhatIfPreference", ((SwitchParameter)MyInvocation.BoundParameters["WhatIf"]).IsPresent);
+                    WriteError(error);
                 }
-                if (MyInvocation.BoundParameters.ContainsKey("Confirm"))
+            }
+            else
+            {
+                foreach (PSObject psObject in results)
                 {
-                    SessionState.PSVariable.Set("ConfirmPreference", ((SwitchParameter)MyInvocation.BoundParameters["Confirm"]).IsPresent ? "Low" : "None");
+                    ScriptBlock scriptBlock = psObject.Properties["ScriptBlock"].Value as ScriptBlock;
+                    script = scriptBlock.ToString();
+                    ScriptBlockAst ast = scriptBlock.Ast as ScriptBlockAst;
+                    if (ast.ParamBlock != null)
+                    {
+                        foreach (ParameterAst parameterAst in ast.ParamBlock.Parameters)
+                        {
+                            string parameterName = parameterAst.Name.VariablePath.UserPath;
+                            if ((parameterAst.DefaultValue == null) && (!MyInvocation.BoundParameters.ContainsKey("Parameters") || !Parameters.ContainsKey(parameterName)))
+                            {
+                                missingMandatoryParameters.Add(parameterName);
+                            }
+                        }
+                    }
                 }
-                string script = "";
-                List<string> missingMandatoryParameters = new List<string>();
-                PowerShell ps = PowerShell.Create(RunspaceMode.CurrentRunspace);
-                ps.AddCommand("Get-Command");
-                ps.AddParameter("Name", snippetPath);
-                var results = ps.Invoke();
+                if (missingMandatoryParameters.Count > 0)
+                {
+                    throw new ParameterBindingException("The following mandatory parameters were not provided in the invocation of the \"" + Name + "\" snippet: " + String.Join(",", missingMandatoryParameters.ToArray()) + ".");
+                }
+                WriteVerbose("Invoking snippet \"" + Name + "\" (" + snippetPath + ").");
+                ps.Commands.Clear();
+                ps.AddScript(script, MyInvocation.BoundParameters.ContainsKey("ChildScope") && ChildScope.IsPresent);
+                if (MyInvocation.BoundParameters.ContainsKey("Parameters") && (Parameters.Count > 0))
+                {
+                    ps.AddParameters(Parameters);
+                }
+                results = ps.Invoke();
                 if (ps.HadErrors)
                 {
                     foreach (ErrorRecord error in ps.Streams.Error)
@@ -79,60 +104,8 @@ namespace SnippetPx
                 {
                     foreach (PSObject psObject in results)
                     {
-                        ScriptBlock scriptBlock = psObject.Properties["ScriptBlock"].Value as ScriptBlock;
-                        script = scriptBlock.ToString();
-                        ScriptBlockAst ast = scriptBlock.Ast as ScriptBlockAst;
-                        if (ast.ParamBlock != null)
-                        {
-                            foreach (ParameterAst parameterAst in ast.ParamBlock.Parameters)
-                            {
-                                string parameterName = parameterAst.Name.VariablePath.UserPath;
-                                if ((parameterAst.DefaultValue == null) && (!MyInvocation.BoundParameters.ContainsKey("Parameters") || !Parameters.ContainsKey(parameterName)))
-                                {
-                                    missingMandatoryParameters.Add(parameterName);
-                                }
-                            }
-                        }
+                        WriteObject(psObject);
                     }
-                    if (missingMandatoryParameters.Count > 0)
-                    {
-                        throw new ParameterBindingException("The following mandatory parameters were not provided in the invocation of the \"" + Name + "\" snippet: " + String.Join(",", missingMandatoryParameters.ToArray()) + ".");
-                    }
-                    if (ShouldProcess(Name))
-                    {
-                        ps.Commands.Clear();
-                        ps.AddScript(script, MyInvocation.BoundParameters.ContainsKey("ChildScope") && ChildScope.IsPresent);
-                        if (MyInvocation.BoundParameters.ContainsKey("Parameters") && (Parameters.Count > 0))
-                        {
-                            ps.AddParameters(Parameters);
-                        }
-                        results = ps.Invoke();
-                        if (ps.HadErrors)
-                        {
-                            foreach (ErrorRecord error in ps.Streams.Error)
-                            {
-                                WriteError(error);
-                            }
-                        }
-                        else
-                        {
-                            foreach (PSObject psObject in results)
-                            {
-                                WriteObject(psObject);
-                            }
-                        }
-                    }
-                }
-            }
-            finally
-            {
-                if (MyInvocation.BoundParameters.ContainsKey("WhatIf"))
-                {
-                    SessionState.PSVariable.Set("WhatIfPreference", whatifPreference);
-                }
-                if (MyInvocation.BoundParameters.ContainsKey("Confirm"))
-                {
-                    SessionState.PSVariable.Set("ConfirmPreference", confirmPreference);
                 }
             }
         }
