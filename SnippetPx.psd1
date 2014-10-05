@@ -27,7 +27,7 @@ license folder that is included in the SnippetPx module. If not, see
 @{
       ModuleToProcess = 'SnippetPx.dll'
 
-        ModuleVersion = '1.0.0.1'
+        ModuleVersion = '1.0.0.2'
 
                  GUID = '78755225-3595-445d-adfc-f59cf06f2fef'
 
