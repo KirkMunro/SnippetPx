@@ -1,19 +1,4 @@
-# Set default behaviour, in case users don't have core.autocrlf set.
-* text=auto
-
-# Explicitly declare text files we want to always be normalized and converted
-# to native line endings on checkout.
-*.md            text
-*.gitattributes text
-
-# For release, all project files must be binary to prevent merging.
-*.ps1    binary
-*.psm1   binary
-*.psd1   binary
-*.psc1   binary
-*.ps1xml binary
-*.clixml binary
-*.xml    binary
-*.txt    binary
-*.dll    binary
-*.exe    binary
+# Treat all files in this project as binary. This enables atomic
+# checkins (no merges, these are signed files) and it preserves
+# CRLF line endings
+* binary
