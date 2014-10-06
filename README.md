@@ -32,7 +32,7 @@ the documentation for the snippet to ensure it is appropriate for your use case.
 
 ### Minimum requirements
 
-PowerShell 3.0
+- PowerShell 3.0
 
 ### License and Copyright
 
