@@ -56,7 +56,7 @@ try {
     #region Get the currently installed module (if there is one).
 
     Write-Progress -Activity 'Installing SnippetPx' -Status 'Looking for an installed SnippetPx module.'
-    $module = Get-Module -ListAvailable | Where-Object {$_.Guid -eq [System.Guid]'161b91e7-ca3d-40e2-8d0e-e00b31740f90'}
+    $module = Get-Module -ListAvailable | Where-Object {$_.Guid -eq [System.Guid]'78755225-3595-445d-adfc-f59cf06f2fef'}
     if ($module -is [System.Array]) {
         [System.String]$message = 'More than one version of SnippetPx is installed on this system. Manually remove the old versions and then try again.'
         [System.Management.Automation.SessionStateException]$exception = New-Object -TypeName System.Management.Automation.SessionStateException -ArgumentList $message
@@ -187,8 +187,8 @@ try {
 # SIG # Begin signature block
 # MIIZIAYJKoZIhvcNAQcCoIIZETCCGQ0CAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUw6XCSJFqZuCo2/nB6gSa2t4H
-# 9xegghRWMIID7jCCA1egAwIBAgIQfpPr+3zGTlnqS5p31Ab8OzANBgkqhkiG9w0B
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQU3/QAtsU7IefYzpt5b3UBHy9n
+# pFqgghRWMIID7jCCA1egAwIBAgIQfpPr+3zGTlnqS5p31Ab8OzANBgkqhkiG9w0B
 # AQUFADCBizELMAkGA1UEBhMCWkExFTATBgNVBAgTDFdlc3Rlcm4gQ2FwZTEUMBIG
 # A1UEBxMLRHVyYmFudmlsbGUxDzANBgNVBAoTBlRoYXd0ZTEdMBsGA1UECxMUVGhh
 # d3RlIENlcnRpZmljYXRpb24xHzAdBgNVBAMTFlRoYXd0ZSBUaW1lc3RhbXBpbmcg
@@ -301,23 +301,23 @@ try {
 # aWdpY2VydC5jb20xLjAsBgNVBAMTJURpZ2lDZXJ0IEFzc3VyZWQgSUQgQ29kZSBT
 # aWduaW5nIENBLTECEA3/99JYTi+N6amVWfXCcCMwCQYFKw4DAhoFAKB4MBgGCisG
 # AQQBgjcCAQwxCjAIoAKAAKECgAAwGQYJKoZIhvcNAQkDMQwGCisGAQQBgjcCAQQw
-# HAYKKwYBBAGCNwIBCzEOMAwGCisGAQQBgjcCARUwIwYJKoZIhvcNAQkEMRYEFLbX
-# y85et7d2pSrZAt8lmShRnvpwMA0GCSqGSIb3DQEBAQUABIIBAAf1bgY6+k/ckx4h
-# Y+WUVkKAfLWpA8Bs7duoUYUXEXPSq6rTXXwEcBd++P8wBudmYMWqFTjbItfqbmOC
-# FA7H8p6CshXerzPMNTBtzNLIXFD93iT29Pn2oLyX2YXhRE+tMJ4E7J76rELfhU9f
-# H0/Sn+24pC6RvdNUjas7js4yTW+TybMUBuNhmqxC05dQ1qJCynOhDjYPYXPkeit+
-# wooTCb79Z05Hlboc+5nUuK1Cd/ZDGmFmC3TYAZFQ7BVj3Qbppcvmv82rwSRsffs1
-# 21FtK0XNT/e/oPU3bgPRnvlXQaGRqxRmXy5P+YbJiixKlMmZEgx2V3lLpVXOrWvx
-# d3vehAKhggILMIICBwYJKoZIhvcNAQkGMYIB+DCCAfQCAQEwcjBeMQswCQYDVQQG
+# HAYKKwYBBAGCNwIBCzEOMAwGCisGAQQBgjcCARUwIwYJKoZIhvcNAQkEMRYEFMNp
+# l7n5S9PG4O7Mxc8bT8voKx7HMA0GCSqGSIb3DQEBAQUABIIBAJPAhubV+kJH5ldN
+# 7sr1R+kjHepF2eATD0VJIencqsVLsN4EzTUYk7mSR6padFXeZ+dEHimQA/mByfKx
+# J0Y97QBODd8HmuVL3lKjNHZ6e7XL/29RC07oxWRA4hc0SR39g5Fy+T/t3C2EZC1u
+# QS6ewBCN06uRIGfdfFX5e+XboAsKhigOn/k4u0bQYkYlf+KVF8uuiLkqHOR50p/n
+# JarhRtpTl5YTB8t9TWgoEXBt1we+7uZVZdwiJHUg0cc6uf6RQdxAmzRDz8aGXZ2U
+# 6Ia6qg7/9Eko98QwB8eJ0rZ6c6VOHU58V27BzLgYwZmhBadPwoBfeDgJxJoBuRkb
+# H4WWtIahggILMIICBwYJKoZIhvcNAQkGMYIB+DCCAfQCAQEwcjBeMQswCQYDVQQG
 # EwJVUzEdMBsGA1UEChMUU3ltYW50ZWMgQ29ycG9yYXRpb24xMDAuBgNVBAMTJ1N5
 # bWFudGVjIFRpbWUgU3RhbXBpbmcgU2VydmljZXMgQ0EgLSBHMgIQDs/0OMj+vzVu
 # BNhqmBsaUDAJBgUrDgMCGgUAoF0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAc
-# BgkqhkiG9w0BCQUxDxcNMTQxMDA4MTMwODIyWjAjBgkqhkiG9w0BCQQxFgQUsavV
-# 3KiC9ufg4bkV9Haz8NwytYowDQYJKoZIhvcNAQEBBQAEggEAUUOOTycqKpEkVlav
-# a8iuIWEOFXwjqGQrQE1rSyNWuGA2EONituwh3pGMwaz6xiswhrJIv2CnNN9Z3aeb
-# yTG4OpjvxSBMbdUE0fKTgT08kmcV0EMS7eON0odiLChtS2iO8lEQ901oxudi4V9V
-# 8HWxck+iNcjnBkKGXOE/9ss3QG+SUU26ebOkhsHxacgFhT9Dx80399cHF8eBu5h1
-# 6Oz3kMxFZWInYD2lwcY6sPb+z+wl8qmUHH9RHjHnQfWoKDNSuXIRc3DFXoZkoyS/
-# 59BxOisymOYDizqTjji+Mf3EuiUwRcCwgWGePwGpRIjZuQ3Bjn25vP3N8liVmgY7
-# O7De8w==
+# BgkqhkiG9w0BCQUxDxcNMTQxMDA4MTQxOTU0WjAjBgkqhkiG9w0BCQQxFgQUCKuo
+# i3/MjLVuapwn3SxhtPuoF1kwDQYJKoZIhvcNAQEBBQAEggEAPlldkxxkOSxH87f2
+# 7koFrq7E2oRdvcBxIMns6zbXUpqXt7ZxAQlis2VmdR5W7fI2y1KCuBm0eDp2daFN
+# sW7QVNCjJoo6NZPBnQV3Cx5MogQ2Ou7VmT33+jFBprsO4+QuIzeI0YKFPGp8rT9S
+# tXiODCDLa+/tHmKbmzRX1bDTze9kgESArqmO44+mC+KIedVU2G38z5XjrNZOcJbU
+# lPbqPwTTvyMt0g37YCTKtAxGcYsDRRHLDw4APL2xqncGjd9f0YncJUoKC5XR9CuE
+# nzEKs2R05K0Kt2EJPBKHT6k0Ts7N9t+ZeZD6u2WSsoegG/w6NQbfcYrKQlyBDjMA
+# lTXVqg==
 # SIG # End signature block
