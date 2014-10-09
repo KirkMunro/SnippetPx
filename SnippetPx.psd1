@@ -27,7 +27,7 @@ license folder that is included in the SnippetPx module. If not, see
 @{
       ModuleToProcess = 'SnippetPx.dll'
 
-        ModuleVersion = '1.0.0.4'
+        ModuleVersion = '1.0.0.5'
 
                  GUID = '78755225-3595-445d-adfc-f59cf06f2fef'
 
@@ -61,12 +61,22 @@ license folder that is included in the SnippetPx module. If not, see
                         'snippets\ScriptFile.Import.Ordered.ps1'
                         'snippets\ScriptFile.Import.ps1'
                         )
+
+          PrivateData = @{
+                            PSData = @{
+                                Tags = 'snippet invoke scriptblock dry principle'
+                                LicenseUri = 'http://www.gnu.org/licenses/gpl-3.0.html'
+                                ProjectUri = 'https://github.com/KirkMunro/SnippetPx'
+                                IconUri = ''
+                                ReleaseNotes = ''
+                            }
+                        }
 }
 # SIG # Begin signature block
 # MIIZIAYJKoZIhvcNAQcCoIIZETCCGQ0CAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQU54uJKLzBX2IclilOJ0rahzXq
-# CGSgghRWMIID7jCCA1egAwIBAgIQfpPr+3zGTlnqS5p31Ab8OzANBgkqhkiG9w0B
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUZnJptQ7cJ3k5aCyuR1ltdJkN
+# svqgghRWMIID7jCCA1egAwIBAgIQfpPr+3zGTlnqS5p31Ab8OzANBgkqhkiG9w0B
 # AQUFADCBizELMAkGA1UEBhMCWkExFTATBgNVBAgTDFdlc3Rlcm4gQ2FwZTEUMBIG
 # A1UEBxMLRHVyYmFudmlsbGUxDzANBgNVBAoTBlRoYXd0ZTEdMBsGA1UECxMUVGhh
 # d3RlIENlcnRpZmljYXRpb24xHzAdBgNVBAMTFlRoYXd0ZSBUaW1lc3RhbXBpbmcg
@@ -179,23 +189,23 @@ license folder that is included in the SnippetPx module. If not, see
 # aWdpY2VydC5jb20xLjAsBgNVBAMTJURpZ2lDZXJ0IEFzc3VyZWQgSUQgQ29kZSBT
 # aWduaW5nIENBLTECEA3/99JYTi+N6amVWfXCcCMwCQYFKw4DAhoFAKB4MBgGCisG
 # AQQBgjcCAQwxCjAIoAKAAKECgAAwGQYJKoZIhvcNAQkDMQwGCisGAQQBgjcCAQQw
-# HAYKKwYBBAGCNwIBCzEOMAwGCisGAQQBgjcCARUwIwYJKoZIhvcNAQkEMRYEFOyP
-# /QiSqZ7GpRZSk6rPOtIyOqt/MA0GCSqGSIb3DQEBAQUABIIBAI4erElo3Sa4JMtE
-# 4pyOcx2ee9X4jRgicmmFlaRp9zCvoT4ULnupYND6ZhfQw+T6iBgUPYezSVd6tAL7
-# SfNFvQSuXqG97JMWyaH7vi3u2s6lEwKohOmgtq5DaHp5KzAM75V0hkF1eq3yLHff
-# LK3hTLP3cKu5lBMItoktEHAd3sLoNpDt9d89Qxl3YXImlBLzMrUMRRR+XM1BTd1Z
-# lL2h/q1p37oGpll0Uf8cLshrT123lKdsyS6jUtJgGMhbwIpQo1Sh2OR+xG2mv2oT
-# nIcCvatxsqYxKMlTbkW+ssGWbDaMn3jT7KeJgCrfXtdz7YFztDUtsYsuNFO+p/lm
-# Dtqkd2ehggILMIICBwYJKoZIhvcNAQkGMYIB+DCCAfQCAQEwcjBeMQswCQYDVQQG
+# HAYKKwYBBAGCNwIBCzEOMAwGCisGAQQBgjcCARUwIwYJKoZIhvcNAQkEMRYEFPpU
+# kQ9mHiIlF5RE2YqpslGpUvOIMA0GCSqGSIb3DQEBAQUABIIBAHvy6OW8Fq4jX9eo
+# sSPD2Vzer/LQSLYh24yer48TZAUeod+Hbr6f26p152GQ/FHSweYznhYC27xNe6Vy
+# rWjmGSpdSBeq9dsBvgp0EEJKEnqiDvrHSO1ha8qm327Plk7XcCyA4RfusMPmXMEw
+# eAHkDo0LBB0oG6IAzg5mUA3OFLysUYnOE+EKqDlERYkptNJHWWZFnsiKp9V5Jv7O
+# 2nvYKNA8cWiqqpG/43uznXZRjanuqymTOm6AqmHl0paMT5KfbwTLDVA0LDZOfv3/
+# 9i5BNM8YxGu4jWZytXEijgvqDGuVKdTc7FLKIFaMEQPufXr1cnMnuE1X4MlmNl1A
+# HDNuFs2hggILMIICBwYJKoZIhvcNAQkGMYIB+DCCAfQCAQEwcjBeMQswCQYDVQQG
 # EwJVUzEdMBsGA1UEChMUU3ltYW50ZWMgQ29ycG9yYXRpb24xMDAuBgNVBAMTJ1N5
 # bWFudGVjIFRpbWUgU3RhbXBpbmcgU2VydmljZXMgQ0EgLSBHMgIQDs/0OMj+vzVu
 # BNhqmBsaUDAJBgUrDgMCGgUAoF0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAc
-# BgkqhkiG9w0BCQUxDxcNMTQxMDA4MTQxOTQ3WjAjBgkqhkiG9w0BCQQxFgQUvtv4
-# odBcrDVexWKCkDY5DCqpiJUwDQYJKoZIhvcNAQEBBQAEggEAAiu6UMiXfKUJicdy
-# xXInVjeUbCkuYx7noFA9vvb3ODi5EKdOCpCoBT1JOPEyXqABqEA4SiZHk5p9Mecz
-# UDTuvSEYkRj/stpDdiA7DtsvnnfarTzMAl1IPB8wr6VAsj5bWDsjLQPcuLWHDiER
-# P8eHtPHNRz5dh6KsXn/GuzfxSc0pWMmcScPeIoAmNG5tNCBn00+SFl5x8noxD9pQ
-# EXqfJDNex1ql65guoZg3qWOTWHkuq7Xmru2ZMgUZyuAJobIXnFPuA6BeysXNGwq8
-# hX8L9G9mny8DMhFFKRinagSPdeq8j4wUZ4z/C9NS2XzOh0iui2RnV+zazqNUavH7
-# Y8jnbg==
+# BgkqhkiG9w0BCQUxDxcNMTQxMDA5MTk1NzI5WjAjBgkqhkiG9w0BCQQxFgQUjZRj
+# X4SglbdLhAy0QmZudj/tLKkwDQYJKoZIhvcNAQEBBQAEggEAVU27d3d43Zd0kSyg
+# mShJepKokG45ZimgspK4OfqCiXKWDLliZHRWjTMrkEJJKMNiFTdLHZ4yqDcgngP7
+# NT3E1+9wJmWS1ifICx7/WUGrLgLryj6HkZSbYZRL1NrWga48gswR1Z+HcHp92xKa
+# PGIQEE5Bpczurhby3r9c3dou4ryaO1hP+ojBYNICAkl1oN8z1ogVJ73gJ20X6UWz
+# 4FxL5h1eM205bBcfWaRDu/OwXOTxkq06nI9WzPvjEjSILgVKQ1RVwuqhENzv8V3g
+# liSxf1G+ZB+wY6wvjxmjo/BBgC4tDsFQn1GNXZ5Q25e/ucvf+yS+rdJ8ycKmOn7I
+# ht7nyw==
 # SIG # End signature block
