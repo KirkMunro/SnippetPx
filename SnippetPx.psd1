@@ -27,7 +27,7 @@ license folder that is included in the SnippetPx module. If not, see
 @{
       ModuleToProcess = 'SnippetPx.dll'
 
-        ModuleVersion = '1.0.0.4'
+        ModuleVersion = '1.0.0.5'
 
                  GUID = '78755225-3595-445d-adfc-f59cf06f2fef'
 
@@ -61,4 +61,14 @@ license folder that is included in the SnippetPx module. If not, see
                         'snippets\ScriptFile.Import.Ordered.ps1'
                         'snippets\ScriptFile.Import.ps1'
                         )
+
+          PrivateData = @{
+                            PSData = @{
+                                Tags = 'snippet invoke scriptblock dry principle'
+                                LicenseUri = 'http://www.gnu.org/licenses/gpl-3.0.html'
+                                ProjectUri = 'https://github.com/KirkMunro/SnippetPx'
+                                IconUri = ''
+                                ReleaseNotes = ''
+                            }
+                        }
 }
