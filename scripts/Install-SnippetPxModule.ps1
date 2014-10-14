@@ -8,20 +8,19 @@ function support in PowerShell won't allow for it to be invoked properly in
 the current scope, or because it isn't big enough to warrant adding another
 function to the function pool.
 
-Copyright © 2014 Kirk Munro.
+Copyright 2014 Kirk Munro
 
-This program is free software: you can redistribute it and/or modify it under
-the terms of the GNU General Public License as published by the Free Software
-Foundation, either version 3 of the License, or (at your option) any later
-version.
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-This program is distributed in the hope that it will be useful, but WITHOUT
-ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+    http://www.apache.org/licenses/LICENSE-2.0
 
-You should have received a copy of the GNU General Public License in the
-license folder that is included in the SnippetPx module. If not, see
-<https://www.gnu.org/licenses/gpl.html>.
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 #############################################################################>
 
 # This script should only be invoked when you want to download the latest
@@ -187,8 +186,8 @@ try {
 # SIG # Begin signature block
 # MIIZIAYJKoZIhvcNAQcCoIIZETCCGQ0CAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQU3/QAtsU7IefYzpt5b3UBHy9n
-# pFqgghRWMIID7jCCA1egAwIBAgIQfpPr+3zGTlnqS5p31Ab8OzANBgkqhkiG9w0B
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQU3T7xzvHcf4jpzfpVBtefRxSh
+# ca+gghRWMIID7jCCA1egAwIBAgIQfpPr+3zGTlnqS5p31Ab8OzANBgkqhkiG9w0B
 # AQUFADCBizELMAkGA1UEBhMCWkExFTATBgNVBAgTDFdlc3Rlcm4gQ2FwZTEUMBIG
 # A1UEBxMLRHVyYmFudmlsbGUxDzANBgNVBAoTBlRoYXd0ZTEdMBsGA1UECxMUVGhh
 # d3RlIENlcnRpZmljYXRpb24xHzAdBgNVBAMTFlRoYXd0ZSBUaW1lc3RhbXBpbmcg
@@ -301,23 +300,23 @@ try {
 # aWdpY2VydC5jb20xLjAsBgNVBAMTJURpZ2lDZXJ0IEFzc3VyZWQgSUQgQ29kZSBT
 # aWduaW5nIENBLTECEA3/99JYTi+N6amVWfXCcCMwCQYFKw4DAhoFAKB4MBgGCisG
 # AQQBgjcCAQwxCjAIoAKAAKECgAAwGQYJKoZIhvcNAQkDMQwGCisGAQQBgjcCAQQw
-# HAYKKwYBBAGCNwIBCzEOMAwGCisGAQQBgjcCARUwIwYJKoZIhvcNAQkEMRYEFMNp
-# l7n5S9PG4O7Mxc8bT8voKx7HMA0GCSqGSIb3DQEBAQUABIIBAJPAhubV+kJH5ldN
-# 7sr1R+kjHepF2eATD0VJIencqsVLsN4EzTUYk7mSR6padFXeZ+dEHimQA/mByfKx
-# J0Y97QBODd8HmuVL3lKjNHZ6e7XL/29RC07oxWRA4hc0SR39g5Fy+T/t3C2EZC1u
-# QS6ewBCN06uRIGfdfFX5e+XboAsKhigOn/k4u0bQYkYlf+KVF8uuiLkqHOR50p/n
-# JarhRtpTl5YTB8t9TWgoEXBt1we+7uZVZdwiJHUg0cc6uf6RQdxAmzRDz8aGXZ2U
-# 6Ia6qg7/9Eko98QwB8eJ0rZ6c6VOHU58V27BzLgYwZmhBadPwoBfeDgJxJoBuRkb
-# H4WWtIahggILMIICBwYJKoZIhvcNAQkGMYIB+DCCAfQCAQEwcjBeMQswCQYDVQQG
+# HAYKKwYBBAGCNwIBCzEOMAwGCisGAQQBgjcCARUwIwYJKoZIhvcNAQkEMRYEFCH+
+# q0OwItXTwC044LesX8Nl8pXDMA0GCSqGSIb3DQEBAQUABIIBAIxz1pinTQILFqPm
+# L4/FvtI5okONcwHCnPYViCzs5Rquo4U1RU7NTLwmFMRsVgVSJBZUYdpfG1ZLCrZ4
+# VLu2BElJihuYyQsrWNhkFJMB1jEo9naMHe0Fo80PoDZmZoVEQsnkAlYcXNTu8cLS
+# j8Zk10UiMT5fOAYjlcvPzDJVcfYtk5M3z2N4iSu87rjVv4LGVqyhj+6aJjcRKXi1
+# wjxvIJ42ed79KLQoFJQkeVDzLB/VdFDBPSKxpYUZnxVCbYgyGgtbz2t46/RF5Dlb
+# Uw24IzaYof568z2fyRq2pV0DNRBYA5j9wcqJnCnm7U0NpVO9ln3Vki7c3grrWlf9
+# O3w6z+yhggILMIICBwYJKoZIhvcNAQkGMYIB+DCCAfQCAQEwcjBeMQswCQYDVQQG
 # EwJVUzEdMBsGA1UEChMUU3ltYW50ZWMgQ29ycG9yYXRpb24xMDAuBgNVBAMTJ1N5
 # bWFudGVjIFRpbWUgU3RhbXBpbmcgU2VydmljZXMgQ0EgLSBHMgIQDs/0OMj+vzVu
 # BNhqmBsaUDAJBgUrDgMCGgUAoF0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAc
-# BgkqhkiG9w0BCQUxDxcNMTQxMDA5MTk1NzI5WjAjBgkqhkiG9w0BCQQxFgQUCKuo
-# i3/MjLVuapwn3SxhtPuoF1kwDQYJKoZIhvcNAQEBBQAEggEAj5ajYNb99VynB0Tr
-# W9qXVj95lVplLSqzP27HattqriHsnYYEx+82o5Oau/dMYb7UyeUUGqkpCtXmthhO
-# TKjDUs4+M8DlmdR0u/j2XWW7numTooHk884KFMncNqKZfA2xT77REE1fjIQiEa3i
-# E54tV9TGzi6F5jUqBKocXTFFiJGKbB656dVRR8cUXbmLzJP5hdJB8fGWcJorwWxo
-# oEsHjykY/s+6q1bME16Dbxhnh0U5Pv5jrbhm/xok/OvEYEShyvdjDnKAD+VA1tx4
-# lQb8RlpYAORfHrcx2wUIzApvy8hl572nwsDUHPlay2cXX5U+0hQ34yaEE+g2bJcV
-# VBI9bw==
+# BgkqhkiG9w0BCQUxDxcNMTQxMDE0MDUxMTA1WjAjBgkqhkiG9w0BCQQxFgQU6XWX
+# DbzpzQO/xVU2SyRPdEBHLL4wDQYJKoZIhvcNAQEBBQAEggEAJuUEaJIDqSu74d3c
+# o4eqemXWKo9J4rx5fwAWRRJvdjqpMLfbA2plWKwhXzAg+dmWjhSd8aImBMNH9f9W
+# FYDB2AGmoKxtTipJ89saHmHQvX3iaTzqXgCIaFVcEBRHgkdOZYHt+Eu0dJGT7psd
+# EUGiK7KcSNvfrqDIwOkjVzt7sIqGeF1KUbOU5fKcepW1oLlJX3Rb0LaK3MOInHP/
+# 8K0fWklefGRA5XLPNvTNXL3JCkbXIfUv0T9Orx37feSv6o9LXbcDk3fDfJufkKj0
+# rsAV8I0lUs8gn29iyVPoobr4MNpalgiQUvkFflnNv1Ov4Jbom+rnd0UodOtz4/5P
+# wCyITA==
 # SIG # End signature block

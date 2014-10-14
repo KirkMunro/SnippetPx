@@ -8,20 +8,19 @@ function support in PowerShell won't allow for it to be invoked properly in
 the current scope, or because it isn't big enough to warrant adding another
 function to the function pool.
 
-Copyright © 2014 Kirk Munro.
+Copyright 2014 Kirk Munro
 
-This program is free software: you can redistribute it and/or modify it under
-the terms of the GNU General Public License as published by the Free Software
-Foundation, either version 3 of the License, or (at your option) any later
-version.
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-This program is distributed in the hope that it will be useful, but WITHOUT
-ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+    http://www.apache.org/licenses/LICENSE-2.0
 
-You should have received a copy of the GNU General Public License in the
-license folder that is included in the SnippetPx module. If not, see
-<https://www.gnu.org/licenses/gpl.html>.
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 #############################################################################>
 
 # This script should only be invoked when you want to uninstall SnippetPx.
@@ -79,8 +78,8 @@ try {
 # SIG # Begin signature block
 # MIIZIAYJKoZIhvcNAQcCoIIZETCCGQ0CAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUS6KlgL4KkA7VfGt4UTMjqEAw
-# usOgghRWMIID7jCCA1egAwIBAgIQfpPr+3zGTlnqS5p31Ab8OzANBgkqhkiG9w0B
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUz186FLK5ATTQqwj7yVMD8Gqh
+# 3yygghRWMIID7jCCA1egAwIBAgIQfpPr+3zGTlnqS5p31Ab8OzANBgkqhkiG9w0B
 # AQUFADCBizELMAkGA1UEBhMCWkExFTATBgNVBAgTDFdlc3Rlcm4gQ2FwZTEUMBIG
 # A1UEBxMLRHVyYmFudmlsbGUxDzANBgNVBAoTBlRoYXd0ZTEdMBsGA1UECxMUVGhh
 # d3RlIENlcnRpZmljYXRpb24xHzAdBgNVBAMTFlRoYXd0ZSBUaW1lc3RhbXBpbmcg
@@ -193,23 +192,23 @@ try {
 # aWdpY2VydC5jb20xLjAsBgNVBAMTJURpZ2lDZXJ0IEFzc3VyZWQgSUQgQ29kZSBT
 # aWduaW5nIENBLTECEA3/99JYTi+N6amVWfXCcCMwCQYFKw4DAhoFAKB4MBgGCisG
 # AQQBgjcCAQwxCjAIoAKAAKECgAAwGQYJKoZIhvcNAQkDMQwGCisGAQQBgjcCAQQw
-# HAYKKwYBBAGCNwIBCzEOMAwGCisGAQQBgjcCARUwIwYJKoZIhvcNAQkEMRYEFFYG
-# 6SRxi/L9LPswbNe2CWH0RxcBMA0GCSqGSIb3DQEBAQUABIIBAAJX3V+mYwyD8EAm
-# oWGJA/VEET6H/h0HrjswxoJGP5mhGKPUEEbiyKFpxuh9j/gvOpuUwKtUHy2j+Vf9
-# D1b4h9AJUMoSkhBb8ZkXL3v5Wx0PXqsIBklJJ++x6Ob9+4KF76pPwbvGsEfHCmbz
-# zhyUfM+LkgG44G9pXz+gfTIdE8BtmchP/M+qPx8Azr5NrbWMIc5Qi7PBpeVIjnhm
-# xLDeuNq+CFfCDNqA+v2fMcXVkhpybj9tmKPA+Zikz0lXWv362TU1LCKLJbpg7EcB
-# ZR9tlxqaC+qkXvxL4nU/HzBmxlfdVtOFAaHy6In8PWWEYee1pOk9nPzO+nyBBuQZ
-# vitoEvahggILMIICBwYJKoZIhvcNAQkGMYIB+DCCAfQCAQEwcjBeMQswCQYDVQQG
+# HAYKKwYBBAGCNwIBCzEOMAwGCisGAQQBgjcCARUwIwYJKoZIhvcNAQkEMRYEFL+f
+# Y0Cd5MSHBeiofHFoPdfBa1e+MA0GCSqGSIb3DQEBAQUABIIBAKGaXOdoCl1DsbEC
+# kbZZxBwEDr8HDkPne2Fb6QFBbEtwjqaUpMiwZGtTb547R/7+YurFnMPt3uob1Gep
+# /we/yQjk20akzyTW843H4Hhl4x5V1gy4HebLE/Dqe9QdUt4FCmEYz69E7T24+sNt
+# vTc6nzY4zgqUU5tFdFiAUy1qScWnLNfsZClSFBqbdvidkPxDlcg4Gm8Ct5K42uop
+# I2ctvIfY/ckIDMamAQonny/EaAsnBmB8an+kk0EFuYRxgBi8bjAmhbtaR4zpuhDf
+# pzZsVACwlzGVq3XDKbyEpDKcCnLSR0zcxEIMhP+BdCprEpflgFABpzvY4KZjOZEz
+# dcjql6+hggILMIICBwYJKoZIhvcNAQkGMYIB+DCCAfQCAQEwcjBeMQswCQYDVQQG
 # EwJVUzEdMBsGA1UEChMUU3ltYW50ZWMgQ29ycG9yYXRpb24xMDAuBgNVBAMTJ1N5
 # bWFudGVjIFRpbWUgU3RhbXBpbmcgU2VydmljZXMgQ0EgLSBHMgIQDs/0OMj+vzVu
 # BNhqmBsaUDAJBgUrDgMCGgUAoF0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAc
-# BgkqhkiG9w0BCQUxDxcNMTQxMDA5MTk1NzI5WjAjBgkqhkiG9w0BCQQxFgQUAKzN
-# WpSGZk/ANfj1juU+pCP5H/8wDQYJKoZIhvcNAQEBBQAEggEAkNAYrB30scVgsJgG
-# IzbHF7eXq4lHpRdKD4R696Ej45GQh75csSitKHNPsCwMXX0hzdgfi+VCQ18sjEe2
-# Km04AvNAeYiGdmfv30hp4QVe+OcrKXDVCcQg3HjGlQui8YoWoUlGqjvhAyeEPZWo
-# zOkUv6kLUki4IeuFWzLlk0/GNUhqFj0J9NKzlmBq7MVYwpr+ogfJmwA3q8N7Y33l
-# tYe4PuOce1PA3IQEQlCz5tVve9p4lOMUSh1zE+sYLMMMnMigbgrQqkZcWRww4jNz
-# EBAMLCR1h30EqY7SqGuhWK89OdNSSpODnNiV531N2KO5bR3PEbT/bzkatC/iJzUD
-# SL2icA==
+# BgkqhkiG9w0BCQUxDxcNMTQxMDE0MDUxMTA1WjAjBgkqhkiG9w0BCQQxFgQUF6C6
+# YE9gNleFIyUlFgxUJXpQFukwDQYJKoZIhvcNAQEBBQAEggEANDlM4k9NXzHa+N06
+# ONg8gTQnCVAjZmiqLbGADEcazfayLbH3E0T4TGn3hhRA3/6zBKk3CBBg6yS14FLy
+# EBbH1w0F1SI7L22CjMx12suukxzviaL8gp7NPs5IJm4enUVOpNDXzlwnNbN62wM9
+# w5FyMl4VYYh8O20/uauLsXh4Ezt2h0wSRbdtc3hGTcOMp/dOVVkRSepyqaolg5Vb
+# BI3Scdbioq0GkKXd4ATDBtzRwwWokY/eT10NdJKEqs4Zn05bNaLDMQkcZLOx/U5k
+# fTWflOR3XbFGREfZhN5u20vKBnfz7/dkMtoUPiKP8aJ7zyVYT5I+MJj/0u+ZScqw
+# d7+6fg==
 # SIG # End signature block

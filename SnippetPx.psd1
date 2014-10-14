@@ -1,4 +1,4 @@
-<#############################################################################
+ï»¿<#############################################################################
 The SnippetPx module enhances the snippet experience in PowerShell by offering
 a new format for Snippets: plain, ordinary ps1 files. These snippets are not
 just blocks of script that could be injected into a file. They are also
@@ -8,26 +8,25 @@ function support in PowerShell won't allow for it to be invoked properly in
 the current scope, or because it isn't big enough to warrant adding another
 function to the function pool.
 
-Copyright © 2014 Kirk Munro.
+Copyright 2014 Kirk Munro
 
-This program is free software: you can redistribute it and/or modify it under
-the terms of the GNU General Public License as published by the Free Software
-Foundation, either version 3 of the License, or (at your option) any later
-version.
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-This program is distributed in the hope that it will be useful, but WITHOUT
-ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+    http://www.apache.org/licenses/LICENSE-2.0
 
-You should have received a copy of the GNU General Public License in the
-license folder that is included in the SnippetPx module. If not, see
-<https://www.gnu.org/licenses/gpl.html>.
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 #############################################################################>
 
 @{
       ModuleToProcess = 'SnippetPx.dll'
 
-        ModuleVersion = '1.0.0.5'
+        ModuleVersion = '1.0.0.6'
 
                  GUID = '78755225-3595-445d-adfc-f59cf06f2fef'
 
@@ -35,7 +34,7 @@ license folder that is included in the SnippetPx module. If not, see
 
           CompanyName = 'Poshoholic Studios'
 
-            Copyright = '© 2014 Kirk Munro'
+            Copyright = 'Copyright 2014 Kirk Munro'
 
           Description = 'The SnippetPx module enhances the snippet experience in PowerShell by offering a new format for Snippets: plain, ordinary ps1 files. These snippets are not just blocks of script that could be injected into a file. They are also invocable! This enables better reuse of commonly used pieces of script that would not otherwise be placed into a PowerShell function, either because the function support in PowerShell won''t allow for it to be invoked properly in the current scope, or because it isn''t big enough to warrant adding another function to the function pool.'
 
@@ -47,10 +46,11 @@ license folder that is included in the SnippetPx module. If not, see
                         )
 
              FileList = @(
+                        'LICENSE'
+                        'NOTICE'
                         'SnippetPx.psd1'
                         'SnippetPx.dll'
                         'en-us\SnippetPx.dll-Help.xml'
-                        'license\gpl-3.0.txt'
                         'scripts\Install-SnippetPxModule.ps1'
                         'scripts\Uninstall-SnippetPxModule.ps1'
                         'snippets\Module.Initialize.ps1'
@@ -65,7 +65,7 @@ license folder that is included in the SnippetPx module. If not, see
           PrivateData = @{
                             PSData = @{
                                 Tags = 'snippet invoke scriptblock dry principle'
-                                LicenseUri = 'http://www.gnu.org/licenses/gpl-3.0.html'
+                                LicenseUri = 'http://apache.org/licenses/LICENSE-2.0.txt'
                                 ProjectUri = 'https://github.com/KirkMunro/SnippetPx'
                                 IconUri = ''
                                 ReleaseNotes = ''
@@ -75,8 +75,8 @@ license folder that is included in the SnippetPx module. If not, see
 # SIG # Begin signature block
 # MIIZIAYJKoZIhvcNAQcCoIIZETCCGQ0CAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUZnJptQ7cJ3k5aCyuR1ltdJkN
-# svqgghRWMIID7jCCA1egAwIBAgIQfpPr+3zGTlnqS5p31Ab8OzANBgkqhkiG9w0B
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUOkgFMgijlU61t36aAvVdyial
+# ZM2gghRWMIID7jCCA1egAwIBAgIQfpPr+3zGTlnqS5p31Ab8OzANBgkqhkiG9w0B
 # AQUFADCBizELMAkGA1UEBhMCWkExFTATBgNVBAgTDFdlc3Rlcm4gQ2FwZTEUMBIG
 # A1UEBxMLRHVyYmFudmlsbGUxDzANBgNVBAoTBlRoYXd0ZTEdMBsGA1UECxMUVGhh
 # d3RlIENlcnRpZmljYXRpb24xHzAdBgNVBAMTFlRoYXd0ZSBUaW1lc3RhbXBpbmcg
@@ -189,23 +189,23 @@ license folder that is included in the SnippetPx module. If not, see
 # aWdpY2VydC5jb20xLjAsBgNVBAMTJURpZ2lDZXJ0IEFzc3VyZWQgSUQgQ29kZSBT
 # aWduaW5nIENBLTECEA3/99JYTi+N6amVWfXCcCMwCQYFKw4DAhoFAKB4MBgGCisG
 # AQQBgjcCAQwxCjAIoAKAAKECgAAwGQYJKoZIhvcNAQkDMQwGCisGAQQBgjcCAQQw
-# HAYKKwYBBAGCNwIBCzEOMAwGCisGAQQBgjcCARUwIwYJKoZIhvcNAQkEMRYEFPpU
-# kQ9mHiIlF5RE2YqpslGpUvOIMA0GCSqGSIb3DQEBAQUABIIBAHvy6OW8Fq4jX9eo
-# sSPD2Vzer/LQSLYh24yer48TZAUeod+Hbr6f26p152GQ/FHSweYznhYC27xNe6Vy
-# rWjmGSpdSBeq9dsBvgp0EEJKEnqiDvrHSO1ha8qm327Plk7XcCyA4RfusMPmXMEw
-# eAHkDo0LBB0oG6IAzg5mUA3OFLysUYnOE+EKqDlERYkptNJHWWZFnsiKp9V5Jv7O
-# 2nvYKNA8cWiqqpG/43uznXZRjanuqymTOm6AqmHl0paMT5KfbwTLDVA0LDZOfv3/
-# 9i5BNM8YxGu4jWZytXEijgvqDGuVKdTc7FLKIFaMEQPufXr1cnMnuE1X4MlmNl1A
-# HDNuFs2hggILMIICBwYJKoZIhvcNAQkGMYIB+DCCAfQCAQEwcjBeMQswCQYDVQQG
+# HAYKKwYBBAGCNwIBCzEOMAwGCisGAQQBgjcCARUwIwYJKoZIhvcNAQkEMRYEFErR
+# p28iVlkeill5z8eltaNcEiF8MA0GCSqGSIb3DQEBAQUABIIBAEHtn83R85Qehhf5
+# AZKJBRkq8tyVpHrqUOOkbym+SXiBtBGqIq4rnofJ4O0wX0WCs843pbtwnrFGjLsO
+# vSSv9k4KIwFygNDhWmW5B5XYsaN0lAxh+p665h280ll89rZ1ALUb9EmmmMjIzb2r
+# 9Sx7IcvxT6Vo0hmvf3gZxDZNGDPSUxRrGZ3ljhlvcly69rsDYDm7Q12UE4pOUSbN
+# RsScY0D8BLm8dTy1DRMr++qlzMskEu8u9GFW52RqN7q039F8KilyhXZO/UbXwQQ2
+# GDoOzYhoDAa8FLxA3kCySA9R81cdJ3T/u2lT1Jmy9zVQ/Ec8cjdRB9cBzsYS45iw
+# mIYtOt6hggILMIICBwYJKoZIhvcNAQkGMYIB+DCCAfQCAQEwcjBeMQswCQYDVQQG
 # EwJVUzEdMBsGA1UEChMUU3ltYW50ZWMgQ29ycG9yYXRpb24xMDAuBgNVBAMTJ1N5
 # bWFudGVjIFRpbWUgU3RhbXBpbmcgU2VydmljZXMgQ0EgLSBHMgIQDs/0OMj+vzVu
 # BNhqmBsaUDAJBgUrDgMCGgUAoF0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAc
-# BgkqhkiG9w0BCQUxDxcNMTQxMDA5MTk1NzI5WjAjBgkqhkiG9w0BCQQxFgQUjZRj
-# X4SglbdLhAy0QmZudj/tLKkwDQYJKoZIhvcNAQEBBQAEggEAVU27d3d43Zd0kSyg
-# mShJepKokG45ZimgspK4OfqCiXKWDLliZHRWjTMrkEJJKMNiFTdLHZ4yqDcgngP7
-# NT3E1+9wJmWS1ifICx7/WUGrLgLryj6HkZSbYZRL1NrWga48gswR1Z+HcHp92xKa
-# PGIQEE5Bpczurhby3r9c3dou4ryaO1hP+ojBYNICAkl1oN8z1ogVJ73gJ20X6UWz
-# 4FxL5h1eM205bBcfWaRDu/OwXOTxkq06nI9WzPvjEjSILgVKQ1RVwuqhENzv8V3g
-# liSxf1G+ZB+wY6wvjxmjo/BBgC4tDsFQn1GNXZ5Q25e/ucvf+yS+rdJ8ycKmOn7I
-# ht7nyw==
+# BgkqhkiG9w0BCQUxDxcNMTQxMDE0MDUxMTA1WjAjBgkqhkiG9w0BCQQxFgQUbyIs
+# jigAJRXRzz2IOQtsmCqdx7cwDQYJKoZIhvcNAQEBBQAEggEATgZyHRwYMQVMb6U6
+# a/aQfYNiIbGxbMVZ4tXtO+iuiDT0m2lvxj74amdLi5HO55qLgEf3Dxbf6U5bUJJJ
+# FJZc3iNMIaGyolJ2BV6WSW8AqD8XJJnKN+AjGqQpu+FJ7+VelVXzI0bu13Zdv99W
+# PkQhIuz0uUUIZIVtp/LCbzh/vVE5zwE2Wmdsn49ioEV+718TfDUi2S9pH6VIpGvb
+# d30OiA4S61WoS/SWIlLZnXKaVapyA7greO10pmsrkdNuC8YnVASdncnqzFyP7pnz
+# kDXetVghWQVhQ+GOemGeqPUH7vvsJ2nVGJRgXZEF1vf4qOGPoF6zOOwBwKfNYrUE
+# +yxqbQ==
 # SIG # End signature block
