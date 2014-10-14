@@ -41,9 +41,9 @@ namespace SnippetPx
                     foreach (string directory in Directory.EnumerateDirectories(modulePath))
                     {
                         string directoryName = directory.Split("\\/".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).Last();
-                        if (Directory.Exists(Path.Combine(directory, directoryName + ".psd1")) ||
-                            Directory.Exists(Path.Combine(directory, directoryName + ".psm1")) ||
-                            Directory.Exists(Path.Combine(directory, directoryName + ".dll")))
+                        if (File.Exists(Path.Combine(directory, directoryName + ".psd1")) ||
+                            File.Exists(Path.Combine(directory, directoryName + ".psm1")) ||
+                            File.Exists(Path.Combine(directory, directoryName + ".dll")))
                         {
                             string moduleSnippetsPath = Path.Combine(directory, "snippets");
                             if (Directory.Exists(moduleSnippetsPath) &&
