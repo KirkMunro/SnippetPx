@@ -50,6 +50,47 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
+### Installing the SnippetPx module
+
+You can download and install the latest version of SnippetPx using any
+of the following methods:
+
+#### PowerShellGet
+
+If you don't know what PowerShellGet is, it's the way of the future for PowerShell
+package management. If you're curious to find out more, you should read this:
+<a href="http://blogs.msdn.com/b/mvpawardprogram/archive/2014/10/06/package-management-for-powershell-modules-with-powershellget.aspx" target="_blank">Package Management for PowerShell Modules with PowerShellGet</a>
+
+Note that these commands require that you have the PowerShellGet module installed
+on the system where they are invoked.
+
+```powershell
+# If you don’t have SnippetPx installed already and you want to install
+# it for all all users (recommended, requires elevation)
+Install-Module SnippetPx
+
+# If you don't have SnippetPx installed already and you want to install
+# it for the current user only
+Install-Module SnippetPx -Scope CurrentUser
+
+# If you have SnippetPx installed and you want to update it
+Update-Module
+```
+
+#### PowerShell 3.0 or Later
+
+To install from PowerShell 3.0 or later, open a native PowerShell console (not ISE,
+unless you want it to take longer), and invoke one of the following commands:
+
+```powershell
+# If you want to install SnippetPx for all users or update a version already
+#  installed (recommended, requires elevation for new install for all users)
+& ([scriptblock]::Create((iwr -uri http://tinyurl.com/Install-ModuleFromGitHub).Content)) -ModuleName SnippetPx
+
+# If you want to install SnippetPx for the current user
+& ([scriptblock]::Create((iwr -uri http://tinyurl.com/Install-ModuleFromGitHub).Content)) -ModuleName SnippetPx -Scope CurrentUser
+```
+
 ### Using the SnippetPx module
 
 To see a list of all snippets that are available in your environment, invoke
