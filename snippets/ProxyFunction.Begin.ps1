@@ -16,7 +16,15 @@ param(
 
     # A script block that is used to convert from the proxy command parameters to the parameters of the command being proxied.
     [System.Management.Automation.ScriptBlock]
-    $PreProcessScriptBlock = {}
+    $PreProcessScriptBlock = {},
+
+    # A command that will be used as a source of data to pipe into the function being proxied.
+    [System.Management.Automation.ScriptBlock]
+    $PipeFromCommand = $null,
+
+    # A command that will used to process objects that are returned from the function being proxied.
+    [System.Management.Automation.ScriptBlock]
+    $PipeToCommand = $null
 )
 try {
     #region Ensure that objects are sent through the pipeline one at a time.
@@ -51,6 +59,17 @@ try {
 
     #endregion
 
+    #region Modify the proxy command script block if we have a PipeFromCommand or PipeToCommand.
+
+    if ($PipeFromCommand) {
+        $scriptCmd = [System.Management.Automation.ScriptBlock]::Create("${PipeFromCommand} | ${scriptCmd}")
+    }
+    if ($PipeToCommand) {
+        $scriptCmd = [System.Management.Automation.ScriptBlock]::Create("${scriptCmd} | ${PipeToCommand}")
+    }
+
+    #endregion
+
     #region Use the script block to create the pipeline, then invoke its begin block.
 
     $pipeline = $scriptCmd.GetSteppablePipeline($myInvocation.CommandOrigin)
@@ -63,8 +82,8 @@ try {
 # SIG # Begin signature block
 # MIIZIAYJKoZIhvcNAQcCoIIZETCCGQ0CAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUB3uhpNY8Ry5os0qPpEif1J+K
-# CWWgghRWMIID7jCCA1egAwIBAgIQfpPr+3zGTlnqS5p31Ab8OzANBgkqhkiG9w0B
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUzoMEGBw/S/hH5TrQKPfGdAhX
+# 6mSgghRWMIID7jCCA1egAwIBAgIQfpPr+3zGTlnqS5p31Ab8OzANBgkqhkiG9w0B
 # AQUFADCBizELMAkGA1UEBhMCWkExFTATBgNVBAgTDFdlc3Rlcm4gQ2FwZTEUMBIG
 # A1UEBxMLRHVyYmFudmlsbGUxDzANBgNVBAoTBlRoYXd0ZTEdMBsGA1UECxMUVGhh
 # d3RlIENlcnRpZmljYXRpb24xHzAdBgNVBAMTFlRoYXd0ZSBUaW1lc3RhbXBpbmcg
@@ -177,23 +196,23 @@ try {
 # aWdpY2VydC5jb20xLjAsBgNVBAMTJURpZ2lDZXJ0IEFzc3VyZWQgSUQgQ29kZSBT
 # aWduaW5nIENBLTECEA3/99JYTi+N6amVWfXCcCMwCQYFKw4DAhoFAKB4MBgGCisG
 # AQQBgjcCAQwxCjAIoAKAAKECgAAwGQYJKoZIhvcNAQkDMQwGCisGAQQBgjcCAQQw
-# HAYKKwYBBAGCNwIBCzEOMAwGCisGAQQBgjcCARUwIwYJKoZIhvcNAQkEMRYEFMYt
-# M5DbYV6FPJOkNyfWafbOyi3hMA0GCSqGSIb3DQEBAQUABIIBAJl3Z88VdoHzJo6D
-# pj0Uje/inlgcrOOITxjutBrNLIX+HtkaPDMC5w4+oIJ8tPeMqjIYg0ayJRLAa5EN
-# ai62gpZbvL/fW/AlqHlHMLCUAkWVUaBapbObktpp7asha9iHYb/DC+eP4I4Jyyoy
-# gBvjetPaXSIVJgyJiBEqtLzTjSoJygiwZJ21KoTuJyAg3X7VpuX61rW/Jq+SbXq0
-# XACzv6O46PjE04U7Ai44yw1onjfob5CXUBGSfwMpmVahZ/wYWCmQY3nr3U4IM/m7
-# EHltFTtza0YszAxkdI+MDYMdC1z0JWlko1PYOnDNX5GPhZhuidGTxpSGicf2T2Jd
-# aIi1ZW6hggILMIICBwYJKoZIhvcNAQkGMYIB+DCCAfQCAQEwcjBeMQswCQYDVQQG
+# HAYKKwYBBAGCNwIBCzEOMAwGCisGAQQBgjcCARUwIwYJKoZIhvcNAQkEMRYEFIZk
+# kNBJx2SCBO7hcTWsR8T0+Dv0MA0GCSqGSIb3DQEBAQUABIIBAJGVadSpwRYz4I8X
+# ahP4NgHKfogxZLwDZnmT+SX+AfnUqZhyLaapzUzVtqusy8sC6tSo5hJ/FdnLr7o3
+# NbJZdC571+6vPkvDAdH6hS784wqfX88doQbATjACTvQNMMHqPp8oOaISOYvHhax2
+# o7ojVg4p3FHgAbOO9rhewIExWiqX41lqmnFYJAShO3SsQReKKBCCjFuinplun0wl
+# R1wI3UMVfV5tBdt981A5PD7GBqVuwO794DyLRmL/2ayFKaPGyDlTDbYteOyRtS6P
+# oAEwhNl/hws8ugRK2Eid8oycTgTqjD7Wx+IHhBtSVJzzGIRZf+cc575DOZ8rm/yi
+# tDIio3ehggILMIICBwYJKoZIhvcNAQkGMYIB+DCCAfQCAQEwcjBeMQswCQYDVQQG
 # EwJVUzEdMBsGA1UEChMUU3ltYW50ZWMgQ29ycG9yYXRpb24xMDAuBgNVBAMTJ1N5
 # bWFudGVjIFRpbWUgU3RhbXBpbmcgU2VydmljZXMgQ0EgLSBHMgIQDs/0OMj+vzVu
 # BNhqmBsaUDAJBgUrDgMCGgUAoF0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAc
-# BgkqhkiG9w0BCQUxDxcNMTQxMDE0MDUxMTA2WjAjBgkqhkiG9w0BCQQxFgQUTSPV
-# svVqRjFqATLtt1Lwmv+LBLcwDQYJKoZIhvcNAQEBBQAEggEAc5HM9XKI25piJBw1
-# ZVnyeVca8h6wOxOHGN5YfYhhmfY933Jn6ADyJhMEEeQz4P2gZji/m++941XKtnN4
-# h+Tu9XzBoOvcfIUN6sItF1lNeKQbdDl3dxVt3/HXMtHtNH3ErGZ2bloVhmt5luCZ
-# EIZUhl+E4L4HZ4H61/4qqde0A9RmbPb487rN+FUQlUi+u2OF1sn+TZEaOqMzUZTl
-# K61LzxNytUKltN7txBtwE6I8g6Mo3lwHGvCpNk3pjjJf1sdNcyi90wB/7LG/+frH
-# NmyRh0/nBE7wa5EJrZyIflMXL2/mVjyYBKjJoc4oeo77E/7VuLIpAQ5eYRjSMIlp
-# v+y20g==
+# BgkqhkiG9w0BCQUxDxcNMTQxMDMwMTkyNDM0WjAjBgkqhkiG9w0BCQQxFgQU+bow
+# vIVLZI6HAaviHDXSYpXk1+QwDQYJKoZIhvcNAQEBBQAEggEAdmrSB9NGqA3taaQ8
+# Ih+0U6RmkqCrdc6CjCHqkTVgZ91mnMqvlX15NVtY9T4+kpvZIvWAKJoRSp8Xn7tY
+# tFu1DrNw3alFR1NKyb7YHUztnrIBbK/dbP2xO7pyaoDJJUd7lrHCTKGtHk+ehomc
+# hcmVkISXpSHuy0ZrHPk15yPSj4BmauwyPgSYQiJUziJjGutc6FqnRqZFi76GOer1
+# 3jIVQB++Y0uEfJri7fb1pFN2F2bVEiS2evw4tROTFiwPsTo1KaERDdWUxx1TUqwo
+# XKPY6ZRKSFzM/47CTBgCG6/8p3keA0mLFsWX98dw5gUH18jLvls3UJSNGBYOlrha
+# cVo6oA==
 # SIG # End signature block
