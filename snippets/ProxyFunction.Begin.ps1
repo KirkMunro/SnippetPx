@@ -16,7 +16,15 @@ param(
 
     # A script block that is used to convert from the proxy command parameters to the parameters of the command being proxied.
     [System.Management.Automation.ScriptBlock]
-    $PreProcessScriptBlock = {}
+    $PreProcessScriptBlock = {},
+
+    # A command that will be used as a source of data to pipe into the function being proxied.
+    [System.Management.Automation.ScriptBlock]
+    $PipeFromCommand = $null,
+
+    # A command that will used to process objects that are returned from the function being proxied.
+    [System.Management.Automation.ScriptBlock]
+    $PipeToCommand = $null
 )
 try {
     #region Ensure that objects are sent through the pipeline one at a time.
@@ -48,6 +56,17 @@ try {
 
     $PSPassThruParameters = $PSCmdlet.MyInvocation.BoundParameters
     $scriptCmd = {& $wrappedCmd @PSPassThruParameters}
+
+    #endregion
+
+    #region Modify the proxy command script block if we have a PipeFromCommand or PipeToCommand.
+
+    if ($PipeFromCommand) {
+        $scriptCmd = [System.Management.Automation.ScriptBlock]::Create("${PipeFromCommand} | ${scriptCmd}")
+    }
+    if ($PipeToCommand) {
+        $scriptCmd = [System.Management.Automation.ScriptBlock]::Create("${scriptCmd} | ${PipeToCommand}")
+    }
 
     #endregion
 
