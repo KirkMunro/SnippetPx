@@ -26,7 +26,7 @@ limitations under the License.
 @{
       ModuleToProcess = 'SnippetPx.dll'
 
-        ModuleVersion = '1.0.0.7'
+        ModuleVersion = '1.0.0.8'
 
                  GUID = '78755225-3595-445d-adfc-f59cf06f2fef'
 
@@ -51,8 +51,6 @@ limitations under the License.
                         'SnippetPx.psd1'
                         'SnippetPx.dll'
                         'en-us\SnippetPx.dll-Help.xml'
-                        'scripts\Install-SnippetPxModule.ps1'
-                        'scripts\Uninstall-SnippetPxModule.ps1'
                         'snippets\Module.Initialize.ps1'
                         'snippets\ProxyFunction.Begin.ps1'
                         'snippets\ProxyFunction.End.ps1'
@@ -75,8 +73,8 @@ limitations under the License.
 # SIG # Begin signature block
 # MIIZIAYJKoZIhvcNAQcCoIIZETCCGQ0CAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUOq8Y9PZ1gt8Ogdxno8ZhxI4m
-# zK2gghRWMIID7jCCA1egAwIBAgIQfpPr+3zGTlnqS5p31Ab8OzANBgkqhkiG9w0B
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUcfCJMggFYvq8rAwbI6g0ndpZ
+# 7p2gghRWMIID7jCCA1egAwIBAgIQfpPr+3zGTlnqS5p31Ab8OzANBgkqhkiG9w0B
 # AQUFADCBizELMAkGA1UEBhMCWkExFTATBgNVBAgTDFdlc3Rlcm4gQ2FwZTEUMBIG
 # A1UEBxMLRHVyYmFudmlsbGUxDzANBgNVBAoTBlRoYXd0ZTEdMBsGA1UECxMUVGhh
 # d3RlIENlcnRpZmljYXRpb24xHzAdBgNVBAMTFlRoYXd0ZSBUaW1lc3RhbXBpbmcg
@@ -189,23 +187,23 @@ limitations under the License.
 # aWdpY2VydC5jb20xLjAsBgNVBAMTJURpZ2lDZXJ0IEFzc3VyZWQgSUQgQ29kZSBT
 # aWduaW5nIENBLTECEA3/99JYTi+N6amVWfXCcCMwCQYFKw4DAhoFAKB4MBgGCisG
 # AQQBgjcCAQwxCjAIoAKAAKECgAAwGQYJKoZIhvcNAQkDMQwGCisGAQQBgjcCAQQw
-# HAYKKwYBBAGCNwIBCzEOMAwGCisGAQQBgjcCARUwIwYJKoZIhvcNAQkEMRYEFCVl
-# 1YQYCgV7I5P7+IaGhTT1DcxdMA0GCSqGSIb3DQEBAQUABIIBAII0FjdLsaIic/pX
-# yIjktHdSjXo103BKxhA8GJmXcPlx0yBpINTWAA+8FqVZg44/++IeRLHudeKRpNn4
-# LRK85aJ0Yi5cSPYpQWONrue8zNdl7WNQE+9+0oCYp3q3JNKJWH2NkR61TjDXZXN1
-# H2mpDxplDYrf369dGDK76EtFTi2Toew4zMC85zvY0XH23yXOhSo+G4nbRevjbWGT
-# hSsk/vqLIX5SWoJUCiMr2AAi5RwYEkdNGdbNM40my75lmVlQ5ItdCkM9CfmYjOJX
-# zuG0/28QTKPf+kUJTYia0J4BNhAp08co+S3ynMtdwhxDZpCMTHuA8m87F7Bl695a
-# 4N8uJgOhggILMIICBwYJKoZIhvcNAQkGMYIB+DCCAfQCAQEwcjBeMQswCQYDVQQG
+# HAYKKwYBBAGCNwIBCzEOMAwGCisGAQQBgjcCARUwIwYJKoZIhvcNAQkEMRYEFBtt
+# nML/G2ZE6ZExEo7bPiYnewpAMA0GCSqGSIb3DQEBAQUABIIBALv9EaPqlgyN8Afa
+# 8KrEZ9NCIg+bD8JKxwGPxKUlcHelyIHKINmFG7hSjzh3fuLMy2ivjn1XEk6S19cl
+# JFEEVn5W+Meuh3YUunbkdwQPZsLegaqcYqyzRIzegY41y1SdWFgOOsTwAc6OcGvX
+# aaYgVBEw1l3ZZ/P0NHT4yIufStYabu1S2F7FexGTv/zKAkLU5qXFDDmV/wPPUPiT
+# Mlmpx2DWP3ktZTOTjzEZFVGLeMc29RldATYopKpGscvSzqCl9V/wyMzN76gWiX4V
+# 6F/QwyjbIW6Ed8aebQLOwmAW91ujuNVqCXjwZKq6FiICyCRIXJ1k9fbEf480ZJXi
+# XUfEde6hggILMIICBwYJKoZIhvcNAQkGMYIB+DCCAfQCAQEwcjBeMQswCQYDVQQG
 # EwJVUzEdMBsGA1UEChMUU3ltYW50ZWMgQ29ycG9yYXRpb24xMDAuBgNVBAMTJ1N5
 # bWFudGVjIFRpbWUgU3RhbXBpbmcgU2VydmljZXMgQ0EgLSBHMgIQDs/0OMj+vzVu
 # BNhqmBsaUDAJBgUrDgMCGgUAoF0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAc
-# BgkqhkiG9w0BCQUxDxcNMTQxMDMwMTkyNDI3WjAjBgkqhkiG9w0BCQQxFgQUHGOx
-# 7xoNK5c+ig1PQeIvHFk8/SIwDQYJKoZIhvcNAQEBBQAEggEANRjd6dgzF8cVrB30
-# +VW06rYIwEQQ44yK7GAY5QXDqtTWKaQDq0YMhFYNXvlnj8UHlm/pbinL/kTCt08b
-# Gei03a3HVYGORkFjq5N+pkvqOgMEJjd/5XSZlAlaaRigXpnLwA+q6l2jsNTqthc6
-# l0d79Z5MJiXzT4EWf71D/37zO/K/qnE2BH+Uwu1FPwLcoe+0SOn3eSw4oiByjyez
-# cXcmHDs2E5UwSU5Zp7SD2OjEq8uhRWpxX0ZW3vMo8aVgEO2A1LwnIJYl86M45JNL
-# 6Pc4keEW8rp4P+6W2dQGk1I5E9x85YHIfUR5b8pSz1K8W9Se31R3B66FUBSnkatq
-# Sa0fBg==
+# BgkqhkiG9w0BCQUxDxcNMTQxMTE3MDIyNzA0WjAjBgkqhkiG9w0BCQQxFgQU3Gtf
+# KwY1vEnM15W4XWTjQRTBvpswDQYJKoZIhvcNAQEBBQAEggEAhibP6+Ncn/deGWzK
+# TK7VJbRQOLGzlvC6N9SXYyrm4V20j8sgCJipq/Sv5uSNF2ZPz0yCJzYdGVLni1oA
+# Gvq9xfUWbVqxbIyDhY1DPmbCvJhc7i2KJrnHY16SvoE+Ach9TeS17eHph65NuXNR
+# KiaJJkUJFw3JQpr3ZJKd+cP+AvLXVS4LsMAmwGsTTWtYxwbmeZEQJTiugdGmWp1C
+# TfhC0XITFYgI+iekuSESQfGMD3jyJw6cK7v3mysTT7W3da4YSKLnDBEdRsU75vjP
+# 2i3lbQFHoK30zaA5blgROy88KVDLWU1ZvXvi0nWD0/KKc03EUHstGE1yZ4jG3nBl
+# N8Ys5w==
 # SIG # End signature block
