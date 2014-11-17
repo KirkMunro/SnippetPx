@@ -85,10 +85,10 @@ unless you want it to take longer), and invoke one of the following commands:
 ```powershell
 # If you want to install SnippetPx for all users or update a version already
 #  installed (recommended, requires elevation for new install for all users)
-& ([scriptblock]::Create((iwr -uri http://tinyurl.com/Install-ModuleFromGitHub).Content)) -ModuleName SnippetPx
+& ([scriptblock]::Create((iwr -uri http://tinyurl.com/Install-GitHubHostedModule).Content)) -ModuleName SnippetPx
 
 # If you want to install SnippetPx for the current user
-& ([scriptblock]::Create((iwr -uri http://tinyurl.com/Install-ModuleFromGitHub).Content)) -ModuleName SnippetPx -Scope CurrentUser
+& ([scriptblock]::Create((iwr -uri http://tinyurl.com/Install-GitHubHostedModule).Content)) -ModuleName SnippetPx -Scope CurrentUser
 ```
 
 ### Using the SnippetPx module

@@ -26,7 +26,7 @@ limitations under the License.
 @{
       ModuleToProcess = 'SnippetPx.dll'
 
-        ModuleVersion = '1.0.0.7'
+        ModuleVersion = '1.0.0.8'
 
                  GUID = '78755225-3595-445d-adfc-f59cf06f2fef'
 
@@ -51,8 +51,6 @@ limitations under the License.
                         'SnippetPx.psd1'
                         'SnippetPx.dll'
                         'en-us\SnippetPx.dll-Help.xml'
-                        'scripts\Install-SnippetPxModule.ps1'
-                        'scripts\Uninstall-SnippetPxModule.ps1'
                         'snippets\Module.Initialize.ps1'
                         'snippets\ProxyFunction.Begin.ps1'
                         'snippets\ProxyFunction.End.ps1'
