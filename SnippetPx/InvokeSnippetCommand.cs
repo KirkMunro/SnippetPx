@@ -49,7 +49,6 @@ namespace SnippetPx
             {
                 throw new FileNotFoundException("The file associated with snippet \"" + Name + "\" was not found.", snippetPath);
             }
-            List<string> missingMandatoryParameters = new List<string>();
             PowerShell ps = PowerShell.Create(RunspaceMode.CurrentRunspace);
             ps.AddCommand("Get-Command");
             ps.AddParameter("Name", snippetPath);
@@ -63,6 +62,7 @@ namespace SnippetPx
             }
             else
             {
+                List<string> missingMandatoryParameters = new List<string>();
                 foreach (PSObject psObject in results)
                 {
                     ScriptBlock scriptBlock = psObject.Properties["ScriptBlock"].Value as ScriptBlock;
