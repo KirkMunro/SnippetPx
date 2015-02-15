@@ -8,7 +8,7 @@ function support in PowerShell won't allow for it to be invoked properly in
 the current scope, or because it isn't big enough to warrant adding another
 function to the function pool.
 
-Copyright 2014 Kirk Munro
+Copyright 2015 Kirk Munro
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ limitations under the License.
 @{
       ModuleToProcess = 'SnippetPx.dll'
 
-        ModuleVersion = '1.0.0.9'
+        ModuleVersion = '1.0.0.10'
 
                  GUID = '78755225-3595-445d-adfc-f59cf06f2fef'
 
@@ -34,7 +34,7 @@ limitations under the License.
 
           CompanyName = 'Poshoholic Studios'
 
-            Copyright = 'Copyright 2014 Kirk Munro'
+            Copyright = 'Copyright 2015 Kirk Munro'
 
           Description = 'The SnippetPx module enhances the snippet experience in PowerShell by offering a new format for Snippets: plain, ordinary ps1 files. These snippets are not just blocks of script that could be injected into a file. They are also invocable! This enables better reuse of commonly used pieces of script that would not otherwise be placed into a PowerShell function, either because the function support in PowerShell won''t allow for it to be invoked properly in the current scope, or because it isn''t big enough to warrant adding another function to the function pool.'
 
@@ -52,7 +52,10 @@ limitations under the License.
                         'SnippetPx.dll'
                         'en-us\SnippetPx.dll-Help.xml'
                         'snippets\Module.Initialize.ps1'
+                        'snippets\Module.NewAlias.Export.ps1'
+                        'snippets\Module.NewAlias.NoExport.ps1'
                         'snippets\ProxyFunction.Begin.ps1'
+                        'snippets\ProxyFunction.DynamicParameters.ps1'
                         'snippets\ProxyFunction.End.ps1'
                         'snippets\ProxyFunction.Process.NoPipeline.ps1'
                         'snippets\ProxyFunction.Process.Pipeline.ps1'
@@ -73,8 +76,8 @@ limitations under the License.
 # SIG # Begin signature block
 # MIIZIAYJKoZIhvcNAQcCoIIZETCCGQ0CAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQU/qulPlwaYeMvtB8EVkYulhsw
-# YpWgghRWMIID7jCCA1egAwIBAgIQfpPr+3zGTlnqS5p31Ab8OzANBgkqhkiG9w0B
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUNPHHB7UP/Nkrh+lsEySZeEG/
+# Iz6gghRWMIID7jCCA1egAwIBAgIQfpPr+3zGTlnqS5p31Ab8OzANBgkqhkiG9w0B
 # AQUFADCBizELMAkGA1UEBhMCWkExFTATBgNVBAgTDFdlc3Rlcm4gQ2FwZTEUMBIG
 # A1UEBxMLRHVyYmFudmlsbGUxDzANBgNVBAoTBlRoYXd0ZTEdMBsGA1UECxMUVGhh
 # d3RlIENlcnRpZmljYXRpb24xHzAdBgNVBAMTFlRoYXd0ZSBUaW1lc3RhbXBpbmcg
@@ -187,23 +190,23 @@ limitations under the License.
 # aWdpY2VydC5jb20xLjAsBgNVBAMTJURpZ2lDZXJ0IEFzc3VyZWQgSUQgQ29kZSBT
 # aWduaW5nIENBLTECEA3/99JYTi+N6amVWfXCcCMwCQYFKw4DAhoFAKB4MBgGCisG
 # AQQBgjcCAQwxCjAIoAKAAKECgAAwGQYJKoZIhvcNAQkDMQwGCisGAQQBgjcCAQQw
-# HAYKKwYBBAGCNwIBCzEOMAwGCisGAQQBgjcCARUwIwYJKoZIhvcNAQkEMRYEFElo
-# Kf/cFfZFo6ViCYes6ZsbrwJ0MA0GCSqGSIb3DQEBAQUABIIBAF9BffuYMDeTTUlO
-# HbTrJPq32FUSy/bIrQv2wUX3RwJFVfTA1M+GVglVcwfo5iVcwNhQ5Mp7bxF8W7q1
-# 3hAIShstTWM8dRuA90T2w9/hLCfl4FY7YiUoR1gjowvkL4z0Q46VMngFWVTXbEzq
-# eCalNk53syfAJScHhoDGIdyBBsYEVVnfDphKqyO+o+hTuWGbZWduxWKUPn/H04JJ
-# hVl1gEXACy/fHYfhvw2yqXvCe48oHKz3ULT/VJ+ipgLIbjuXx2SwB2tturQ6ELsa
-# 1zG8yNuTt8Nnyfx6PbVAv+RpOf3869uSw9VaRnfpO7sBP6U9lT8v/twpfkBVSQNf
-# +ekwglahggILMIICBwYJKoZIhvcNAQkGMYIB+DCCAfQCAQEwcjBeMQswCQYDVQQG
+# HAYKKwYBBAGCNwIBCzEOMAwGCisGAQQBgjcCARUwIwYJKoZIhvcNAQkEMRYEFCPk
+# L0zBVny1K7Q3K0xpVGFs2hblMA0GCSqGSIb3DQEBAQUABIIBAEJ/bhLw+JWizJWR
+# g/mRD20BM+6L8JNIe3/ikJRUxh5fLoyJ3cPgiHkg6Zfn656zE6ztvqPR/ADw542y
+# SkczIk1I79rYYIBzFsc01Kt6pEwzC7i/FmNiAIOPI5mpPLJJXJTVGyWmBgOhv2Aq
+# fxh3hix3eUNfi794zccR6VdE3r/1iMiT5lsSHMz2a28oo92nQBXw1i8ts4XRzxZH
+# 8mHuOdKoSYpWKOYbF9/ojqrBa0ooMsYHjh0HyonBe92wrVAV4Vmfe1NG8PGj9lbf
+# rqn+yWSJ1sZNfGNFlzPf5NBpFSFobHF8O8FE2AQ4j/iK9XtUA+h+lRR395IUyq3G
+# YQoqOm2hggILMIICBwYJKoZIhvcNAQkGMYIB+DCCAfQCAQEwcjBeMQswCQYDVQQG
 # EwJVUzEdMBsGA1UEChMUU3ltYW50ZWMgQ29ycG9yYXRpb24xMDAuBgNVBAMTJ1N5
 # bWFudGVjIFRpbWUgU3RhbXBpbmcgU2VydmljZXMgQ0EgLSBHMgIQDs/0OMj+vzVu
 # BNhqmBsaUDAJBgUrDgMCGgUAoF0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAc
-# BgkqhkiG9w0BCQUxDxcNMTQxMTE3MDI1NzQyWjAjBgkqhkiG9w0BCQQxFgQU587v
-# wwc2pCgmoEvq92baluulwu4wDQYJKoZIhvcNAQEBBQAEggEAdcjmfxWYXln9D2zX
-# liogu73j+WsTaTQnp/2p3ndV0KmlgtKvkyCvyKF8U5Y60IULijCOjZsE8HESlXMx
-# 8MmrqcBCxeLMcmwiR9u8zmiQKTmDp5YOLnQE64NtXcVEyjLI4PVGtl+PkVXNQgSJ
-# FhF1632cWLKpb08eBkgBK8EUCRdmGrJOXkyWRb3rr3iWVh0I0fvUva8IFcaGdWvQ
-# s2cykiKFCIkKlYiTOIX3BJDfJdbAA0Uf4sBn3kekW3MlfVEZO2l6UsaGXH80HMI+
-# 9x8RqxsIaypSzmMnxwRG5faYd/OCark5PODaGNOOzpLPQeNHciNxe7bpFn+aSo3r
-# LW5E2A==
+# BgkqhkiG9w0BCQUxDxcNMTUwMjE1MTcwNTA3WjAjBgkqhkiG9w0BCQQxFgQUKqpn
+# 3Mn92t1ndKuZQIBlji93SqswDQYJKoZIhvcNAQEBBQAEggEAHGhVGa51k2yeiN4o
+# ONGPv/vjIQQxKBiFzSVEV9lD59CoRAwbLBWr4UZc9rYSGLqw7MOjxrl8J78AsL82
+# csxC/a1PvAAaYUbShBw/A9CUdYbjHzoNaHsl/ynSQZXiy6NdiwzJRNKvCe7QE4hv
+# lEdjyPS85lnW8isWVgADGPNOFgPgSjKhnCOODZgFwpix1WE1bPlWrpBr97IJqFxk
+# Jz+SJaD6YibyFvQ8PEx2X+h6/qjBMUQH7AtCyvPi7ByoJUpqCqLd2JgjYTdo2d1K
+# 5BMKo4UeV+LxNYbpC6I1iZevLsZ6+yeDsqqPqI57SX0RcK4Wy5z3hA09+dLXf0dp
+# wuLvhw==
 # SIG # End signature block

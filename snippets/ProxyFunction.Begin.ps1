@@ -36,6 +36,14 @@ try {
 
     #endregion
 
+    #region Add empty credential support, regardless of the function being proxied.
+
+    if ($PSCmdlet.MyInvocation.BoundParameters.ContainsKey('Credential') -and ($Credential -eq [System.Management.Automation.PSCredential]::Empty)) {
+        $PSCmdlet.MyInvocation.BoundParameters.Remove('Credential') > $null
+    }
+
+    #endregion
+
     #region Look up the command being proxied.
 
     $wrappedCmd = $ExecutionContext.InvokeCommand.GetCommand($CommandName, $CommandType)
@@ -45,7 +53,11 @@ try {
     #region If the command was not found, throw an appropriate command not found exception.
 
     if (-not $wrappedCmd) {
-        $PSCmdlet.ThrowCommandNotFoundError($CommandName, $PSCmdlet.MyInvocation.MyCommand.Name)
+        $message = $PSCmdlet.GetResourceString('DiscoveryExceptions','CommandNotFoundException') -f $CommandName
+        $exception = New-Object -TypeName System.Management.Automation.CommandNotFoundException -ArgumentList $message
+        $exception.CommandName = $CommandName
+        $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord -ArgumentList $exception,'DiscoveryExceptions',([System.Management.Automation.ErrorCategory]::ObjectNotFound),$PSCmdlet.MyInvocation.MyCommand.Name
+        throw $errorRecord
     }
 
     #endregion
@@ -82,8 +94,8 @@ try {
 # SIG # Begin signature block
 # MIIZIAYJKoZIhvcNAQcCoIIZETCCGQ0CAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUzoMEGBw/S/hH5TrQKPfGdAhX
-# 6mSgghRWMIID7jCCA1egAwIBAgIQfpPr+3zGTlnqS5p31Ab8OzANBgkqhkiG9w0B
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQU2VMUaP3WsPL39EMoGbSMj/Rm
+# aa6gghRWMIID7jCCA1egAwIBAgIQfpPr+3zGTlnqS5p31Ab8OzANBgkqhkiG9w0B
 # AQUFADCBizELMAkGA1UEBhMCWkExFTATBgNVBAgTDFdlc3Rlcm4gQ2FwZTEUMBIG
 # A1UEBxMLRHVyYmFudmlsbGUxDzANBgNVBAoTBlRoYXd0ZTEdMBsGA1UECxMUVGhh
 # d3RlIENlcnRpZmljYXRpb24xHzAdBgNVBAMTFlRoYXd0ZSBUaW1lc3RhbXBpbmcg
@@ -196,23 +208,23 @@ try {
 # aWdpY2VydC5jb20xLjAsBgNVBAMTJURpZ2lDZXJ0IEFzc3VyZWQgSUQgQ29kZSBT
 # aWduaW5nIENBLTECEA3/99JYTi+N6amVWfXCcCMwCQYFKw4DAhoFAKB4MBgGCisG
 # AQQBgjcCAQwxCjAIoAKAAKECgAAwGQYJKoZIhvcNAQkDMQwGCisGAQQBgjcCAQQw
-# HAYKKwYBBAGCNwIBCzEOMAwGCisGAQQBgjcCARUwIwYJKoZIhvcNAQkEMRYEFIZk
-# kNBJx2SCBO7hcTWsR8T0+Dv0MA0GCSqGSIb3DQEBAQUABIIBAJGVadSpwRYz4I8X
-# ahP4NgHKfogxZLwDZnmT+SX+AfnUqZhyLaapzUzVtqusy8sC6tSo5hJ/FdnLr7o3
-# NbJZdC571+6vPkvDAdH6hS784wqfX88doQbATjACTvQNMMHqPp8oOaISOYvHhax2
-# o7ojVg4p3FHgAbOO9rhewIExWiqX41lqmnFYJAShO3SsQReKKBCCjFuinplun0wl
-# R1wI3UMVfV5tBdt981A5PD7GBqVuwO794DyLRmL/2ayFKaPGyDlTDbYteOyRtS6P
-# oAEwhNl/hws8ugRK2Eid8oycTgTqjD7Wx+IHhBtSVJzzGIRZf+cc575DOZ8rm/yi
-# tDIio3ehggILMIICBwYJKoZIhvcNAQkGMYIB+DCCAfQCAQEwcjBeMQswCQYDVQQG
+# HAYKKwYBBAGCNwIBCzEOMAwGCisGAQQBgjcCARUwIwYJKoZIhvcNAQkEMRYEFKfP
+# wkMz4auDvBngT40oQJQ8MsA8MA0GCSqGSIb3DQEBAQUABIIBAHwVSmr6jXU6MUYb
+# 4YuDWCTYW0Sk6pqEYzqJU/einqzLLb8eF6ldmF7sSe7tpNgjdX2UZ0X4kdB5HQZs
+# r/mP70NWTYog7V6Gx5XFd23XuHfRMyl9ZfKoGq3TJmRrKE3q7dQk+vrmdzUlLod9
+# Wg67JjUJwgRAxLhxDHNRN3wDX5Tmm0ZhmVBNtY8bpYwPIloIsxw3p4Jf6fW+DF2j
+# MpCJ2AcoAaYESLFNVeSzufSiloaarGUfR2AZFLwkK7j1L/Yk1t1e2pf0gYw48k8S
+# NN0+uHSqbMswFoUIpc549eh9jXAK4S1QDOHCypK3vij8p2w+u43JKyIvnoVGoNKe
+# EVTP3fyhggILMIICBwYJKoZIhvcNAQkGMYIB+DCCAfQCAQEwcjBeMQswCQYDVQQG
 # EwJVUzEdMBsGA1UEChMUU3ltYW50ZWMgQ29ycG9yYXRpb24xMDAuBgNVBAMTJ1N5
 # bWFudGVjIFRpbWUgU3RhbXBpbmcgU2VydmljZXMgQ0EgLSBHMgIQDs/0OMj+vzVu
 # BNhqmBsaUDAJBgUrDgMCGgUAoF0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAc
-# BgkqhkiG9w0BCQUxDxcNMTQxMTE3MDI1NzM1WjAjBgkqhkiG9w0BCQQxFgQU+bow
-# vIVLZI6HAaviHDXSYpXk1+QwDQYJKoZIhvcNAQEBBQAEggEAS5us6dVdIf5KQWSC
-# qlWe771MppzKH9FKU+CauBOKK6Xj0k3dPB66a+gzJ4bKhK+BGElU85dj9KQQnZgG
-# k+sXTkMwjKjtBzIXmUSUN0AiSuJwJUf7d2JRRNDf2FnU6r2Z6e13jddfJfLebI1T
-# g44KAnxbazduWfwiuP4+MqXhQRwUf9PwkwZbbd9zaaHHc6LCjsY5H3EJjpd94lgQ
-# foN674VByf878A//px/t4jgPzo7pb9xWwqA5atdA1BmcEb+e9TaIMqGXPQfTRa6O
-# TtVUSy5dcIqNWI94bN0PNphwvaBO2gnJ8lDFaNO1rGy6EBVuUBDXXqD0onqbtkqc
-# u309/A==
+# BgkqhkiG9w0BCQUxDxcNMTUwMjE1MTcwNTE3WjAjBgkqhkiG9w0BCQQxFgQUTh61
+# kuwIIoifjbYUeA54K1b8PGswDQYJKoZIhvcNAQEBBQAEggEAd/+ByMELS54NEhL0
+# mXmgjxmf9z1lJeUtieMc8CXj9/SahmNBX8CLEl8sMiVotzssFO6A1mhTP9ReVsPe
+# zUWCNeyqRTlnKfLZB2DTLK5X1DWRwqHBUfl58a4y8bbC1Ad4wvbJj4imA1LE2lyi
+# qmrI4yOlwgZpNfjz2RLn/d7FK5dEt6Dhugyxl2kv+YDs56cqQNPvSUR/eKzkegLm
+# 4lm4UzxLKQeofRAxPOuVe7fGosuKi4m3CClE7LR5hSMBHzojigYN6M1bMn1IQV3z
+# oqzg5I04CwEiJjggaA32EstpyVQpJQ3Jt1KY6os8m3E6oGlIU2cuBewtVxpbmAf5
+# 4fbqgg==
 # SIG # End signature block
