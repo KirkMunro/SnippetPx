@@ -36,7 +36,7 @@ the documentation for the snippet to ensure it is appropriate for your use case.
 
 ### License and Copyright
 
-Copyright 2014 Kirk Munro
+Copyright 2015 Kirk Munro
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

@@ -36,6 +36,14 @@ try {
 
     #endregion
 
+    #region Add empty credential support, regardless of the function being proxied.
+
+    if ($PSCmdlet.MyInvocation.BoundParameters.ContainsKey('Credential') -and ($Credential -eq [System.Management.Automation.PSCredential]::Empty)) {
+        $PSCmdlet.MyInvocation.BoundParameters.Remove('Credential') > $null
+    }
+
+    #endregion
+
     #region Look up the command being proxied.
 
     $wrappedCmd = $ExecutionContext.InvokeCommand.GetCommand($CommandName, $CommandType)
@@ -45,7 +53,11 @@ try {
     #region If the command was not found, throw an appropriate command not found exception.
 
     if (-not $wrappedCmd) {
-        $PSCmdlet.ThrowCommandNotFoundError($CommandName, $PSCmdlet.MyInvocation.MyCommand.Name)
+        $message = $PSCmdlet.GetResourceString('DiscoveryExceptions','CommandNotFoundException') -f $CommandName
+        $exception = New-Object -TypeName System.Management.Automation.CommandNotFoundException -ArgumentList $message
+        $exception.CommandName = $CommandName
+        $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord -ArgumentList $exception,'DiscoveryExceptions',([System.Management.Automation.ErrorCategory]::ObjectNotFound),$PSCmdlet.MyInvocation.MyCommand.Name
+        throw $errorRecord
     }
 
     #endregion
