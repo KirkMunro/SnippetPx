@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("SnippetPx")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("The SnippetPx module enhances the snippet experience in PowerShell by offering a new format for Snippets: plain, ordinary ps1 files. These snippets are not just blocks of script that could be injected into a file. They are also invocable! This enables better reuse of commonly used pieces of script that would not otherwise be placed into a PowerShell function, either because the function support in PowerShell won't allow for it to be invoked properly in the current scope, or because it isn't big enough to warrant adding another function to the function pool.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("SnippetPx")]
-[assembly: AssemblyCopyright("Copyright © 2014 Kirk Munro")]
+[assembly: AssemblyCopyright("Copyright 2015 Kirk Munro")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.6")]
-[assembly: AssemblyFileVersion("1.0.0.6")]
+[assembly: AssemblyVersion("1.0.0.10")]
+[assembly: AssemblyFileVersion("1.0.0.10")]
