@@ -58,7 +58,7 @@ namespace SnippetPx
             // Build the snippet directory from the first unique snippet (name) among all of the snippet paths, processed in order
             foreach (string snippetsPath in snippetPaths)
             {
-                foreach (string filePath in Directory.EnumerateFiles(snippetsPath, "*.ps1", SearchOption.AllDirectories))
+                foreach (string filePath in Directory.EnumerateFiles(snippetsPath, "*.ps1", SearchOption.AllDirectories).Where(x => x.EndsWith(".ps1")))
                 {
                     string snippetName = Path.GetFileNameWithoutExtension(filePath);
                     if (!snippetsDirectory.Contains(snippetName))
