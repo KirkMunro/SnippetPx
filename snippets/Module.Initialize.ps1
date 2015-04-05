@@ -12,6 +12,8 @@ param(
 )
 #region Initialize the module.
 
+# Reset PSDefaultParameterValues in module scope so that user configuration does not influence module execution.
+$PSDefaultParameterValues.Clear()
 # Set strict mode so that PowerShell helps avoid errors in the module.
 Set-StrictMode -Version $StrictModeVersion
 # Enable explicit export so that there are no surprises with commands exported from the module.
@@ -28,8 +30,8 @@ if (-not (Get-Variable -Name PSModuleRoot -Scope 0 -ErrorAction Ignore)) {
 # SIG # Begin signature block
 # MIIZIAYJKoZIhvcNAQcCoIIZETCCGQ0CAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUBbQcRxuWpon/cIUhHZLcnmiZ
-# 7VSgghRWMIID7jCCA1egAwIBAgIQfpPr+3zGTlnqS5p31Ab8OzANBgkqhkiG9w0B
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUdcOYX5SJFaS5e5xy5Ps3Moyb
+# P/ugghRWMIID7jCCA1egAwIBAgIQfpPr+3zGTlnqS5p31Ab8OzANBgkqhkiG9w0B
 # AQUFADCBizELMAkGA1UEBhMCWkExFTATBgNVBAgTDFdlc3Rlcm4gQ2FwZTEUMBIG
 # A1UEBxMLRHVyYmFudmlsbGUxDzANBgNVBAoTBlRoYXd0ZTEdMBsGA1UECxMUVGhh
 # d3RlIENlcnRpZmljYXRpb24xHzAdBgNVBAMTFlRoYXd0ZSBUaW1lc3RhbXBpbmcg
@@ -142,23 +144,23 @@ if (-not (Get-Variable -Name PSModuleRoot -Scope 0 -ErrorAction Ignore)) {
 # aWdpY2VydC5jb20xLjAsBgNVBAMTJURpZ2lDZXJ0IEFzc3VyZWQgSUQgQ29kZSBT
 # aWduaW5nIENBLTECEA3/99JYTi+N6amVWfXCcCMwCQYFKw4DAhoFAKB4MBgGCisG
 # AQQBgjcCAQwxCjAIoAKAAKECgAAwGQYJKoZIhvcNAQkDMQwGCisGAQQBgjcCAQQw
-# HAYKKwYBBAGCNwIBCzEOMAwGCisGAQQBgjcCARUwIwYJKoZIhvcNAQkEMRYEFGVc
-# zsAg/MytPj2RhGVns+59kjQ7MA0GCSqGSIb3DQEBAQUABIIBAKq6rhyKn1jgQp+O
-# Fhp4K9osSso62Zd8YRl6/nh5AgO/l0yGt0X6A8epkPw+3sJG6ytFFLlQ4a11vUuG
-# QvY7tRQhjOSHkcFAbbNaGIkSmbDrvnLHHvZYBtqMYVlh8OcP1ctcwAofGQvTi/hW
-# QqAOLTCQ2/vD2yyDyUb4q8/7z9o6531TodkbI9IHsp/2wCyfzB2s7OmbYcSLqzAs
-# BggVtq7uXxtI2iQngXK/2IiFP8fMwuTm9pDdejshdjupLTgvtaQqiVbpWHkxMNwZ
-# EhdVBSytCF3wpO6oilB1G+5Uuc6JYxrDMXO80QCXg4YWibef8VQX+3KuD2x6UZBQ
-# PAVPjBihggILMIICBwYJKoZIhvcNAQkGMYIB+DCCAfQCAQEwcjBeMQswCQYDVQQG
+# HAYKKwYBBAGCNwIBCzEOMAwGCisGAQQBgjcCARUwIwYJKoZIhvcNAQkEMRYEFOFK
+# d26U4Lf25eaPCYLcG2cGcKUvMA0GCSqGSIb3DQEBAQUABIIBACofgqZpNZPPo77y
+# /wJPIjtnBR0/wIAlA4lb2Go8omwKYvlIWMvDj3IadGD+Dv7kQ46qXgSNeCNDZvIp
+# 0KymixkGvqZwZ0BwDyjWYUnGO9SrpCLx+MXOZc3JBorxQ91w48yeqt4LmgouxsnL
+# opuRVn4EpR8Fp1mYxrcrarhTn6BQwzAmTWlUQJqEpmi4dmfchJz7bM8u6wFCXcph
+# seD2X2CbjVYKDWEyYjwn8iQP78qO+RyVDrwuX8qx28uFZeJiyCIbncv4n0BjyA0t
+# 4FyQO0xUzdoOQSYBQq8pK5Bd9eYoMUQB592C7nITWTeoE3dAbWbNwuRzxzDppAsd
+# Bdlxr7yhggILMIICBwYJKoZIhvcNAQkGMYIB+DCCAfQCAQEwcjBeMQswCQYDVQQG
 # EwJVUzEdMBsGA1UEChMUU3ltYW50ZWMgQ29ycG9yYXRpb24xMDAuBgNVBAMTJ1N5
 # bWFudGVjIFRpbWUgU3RhbXBpbmcgU2VydmljZXMgQ0EgLSBHMgIQDs/0OMj+vzVu
 # BNhqmBsaUDAJBgUrDgMCGgUAoF0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAc
-# BgkqhkiG9w0BCQUxDxcNMTUwMzI2MTkxOTE2WjAjBgkqhkiG9w0BCQQxFgQUJYMj
-# W8jDjea6PateKH3+LcYmNz8wDQYJKoZIhvcNAQEBBQAEggEAVv0nt9FriUSvZVAQ
-# DlDWHEdYPMteoXB5VL9F5kselgnEt24Z/4/siyjCL9N//hjcxbG0Ltobs1GTfBlf
-# miJHIJMn8xlnZuTSjyxo+8Og7jbyG7CvCLOrtAFKH3DqNLq9VmXIPQY+KBi/lSyC
-# oGsNqO6SALZruJQ+te3P4w3v7/ZX2xhdICGDQJWNzM4bZphDkRnRw6F68Tx8HtQn
-# IWtg4newQshtEsJWzQba148NvzDLhd7n+9Kw82hHKdPGzr6qWxhu02R/su4wMsY3
-# 1ibpq/hAvFXHzItzID/OLqRvntD7DU9qj+78QwF7mvzL+Q7oyOdPw8QA9khz55xd
-# hDMAQg==
+# BgkqhkiG9w0BCQUxDxcNMTUwNDA1MTc1MzIxWjAjBgkqhkiG9w0BCQQxFgQUysw0
+# yilJGJ4zeNENZIym3lJk/N0wDQYJKoZIhvcNAQEBBQAEggEAE00BCY/RI40fQnAX
+# bHKxavwRv2ewAl6hBXb7MyzTlXoWXWck6CEsrFUcHBrEaleUFFzRvfevHBvGnO58
+# H6phqoJQt1jBJ+VGGkbDx0+963p8eYZsk5K3rioYpKgD9vuhr9/BdzbgIAraKStB
+# eOHmMQ2occZgha5M09vJUNYaPlBxOfCaU1G6Cke4Ryq+5X4Bxf7BavPlqRCcy3gw
+# 7/mSPrRsIuB7z4tZ0CaoY1tp3Z7vSV3JGxakonXRappex+c7hnwQYzfAtvrrVi2D
+# Tr8Zlqcwpjx9d/pL/Hx1sZ2MmhgPejE6gXYfvv8XEoCGImqOggxSZaKhPWdkM5i2
+# QoIa3w==
 # SIG # End signature block
