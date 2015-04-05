@@ -26,7 +26,7 @@ limitations under the License.
 @{
       ModuleToProcess = 'SnippetPx.dll'
 
-        ModuleVersion = '1.0.1.11'
+        ModuleVersion = '1.0.2.12'
 
                  GUID = '78755225-3595-445d-adfc-f59cf06f2fef'
 

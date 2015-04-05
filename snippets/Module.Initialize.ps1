@@ -12,6 +12,8 @@ param(
 )
 #region Initialize the module.
 
+# Reset PSDefaultParameterValues in module scope so that user configuration does not influence module execution.
+$PSDefaultParameterValues.Clear()
 # Set strict mode so that PowerShell helps avoid errors in the module.
 Set-StrictMode -Version $StrictModeVersion
 # Enable explicit export so that there are no surprises with commands exported from the module.
