@@ -61,6 +61,7 @@ namespace SnippetPx
                 PowerShell ps = PowerShell.Create(RunspaceMode.CurrentRunspace);
                 ps.AddCommand("Get-Help", true);
                 ps.AddParameter("Name", snippetsDirectory[name] as string);
+                ps.AddParameter("ShowWindow", false);
                 foreach (PSObject psObject in ps.Invoke())
                 {
                     if (psObject.BaseObject is PSCustomObject)
