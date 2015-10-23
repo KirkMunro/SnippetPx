@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Specialized;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Management.Automation;
+using System.Text.RegularExpressions;
 
 namespace SnippetPx
 {
@@ -15,22 +17,15 @@ namespace SnippetPx
         {
             List<string> snippetPaths = new List<string>();
             // Add the current user snippets path if it exists (Documents\WindowsPowerShell\snippets)
-            string cuSnippetsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "WindowsPowerShell", "snippets");
-            if (Directory.Exists(cuSnippetsPath))
-            {
-                snippetPaths.Add(cuSnippetsPath);
-            }
+            AddSnippetsPathIfPresent(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "WindowsPowerShell", "snippets"), snippetPaths);
             // Add the all users snippets path if it exists (Program Files\WindowsPowerShell\snippets)
-            string auSnippetsPath = Path.Combine(Environment.GetEnvironmentVariable("ProgramFiles"), "WindowsPowerShell", "snippets");
-            if (Directory.Exists(auSnippetsPath))
-            {
-                snippetPaths.Add(auSnippetsPath);
-            }
+            AddSnippetsPathIfPresent(Path.Combine(Environment.GetEnvironmentVariable("ProgramFiles"), "WindowsPowerShell", "snippets"), snippetPaths);
             // Add the SnippetPx module snippets path if it exists (SnippetPx\snippets)
-            string snippetPxSnippetsPath = Path.Combine(Path.GetDirectoryName(typeof(SnippetCommand).Assembly.Location), "snippets");
-            if (Directory.Exists(snippetPxSnippetsPath))
+            AddSnippetsPathIfPresent(Path.Combine(Path.GetDirectoryName(typeof(SnippetCommand).Assembly.Location), "snippets"), snippetPaths);
+            // Add snippets paths for modules that are already loaded first
+            foreach (PSModuleInfo psModuleInfo in this.GetLoadedModules())
             {
-                snippetPaths.Add(snippetPxSnippetsPath);
+                AddSnippetsPathIfPresent(psModuleInfo.ModuleBase, snippetPaths);
             }
             // Add all remaining snippets paths from other modules based on their order in PSModulePath
             string[] modulePaths = Environment.GetEnvironmentVariable("PSModulePath").Split(";".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
@@ -41,15 +36,18 @@ namespace SnippetPx
                     foreach (string directory in Directory.EnumerateDirectories(modulePath))
                     {
                         string directoryName = directory.Split("\\/".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).Last();
-                        if (File.Exists(Path.Combine(directory, directoryName + ".psd1")) ||
-                            File.Exists(Path.Combine(directory, directoryName + ".psm1")) ||
-                            File.Exists(Path.Combine(directory, directoryName + ".dll")))
+                        if (LooksLikeModulePath(directory, directoryName))
                         {
-                            string moduleSnippetsPath = Path.Combine(directory, "snippets");
-                            if (Directory.Exists(moduleSnippetsPath) &&
-                                (snippetPaths.IndexOf(moduleSnippetsPath) == -1))
+                            AddSnippetsPathIfPresent(directory, snippetPaths);
+                        }
+                        else
+                        {
+                            foreach (string versionDirectory in Directory.EnumerateDirectories(directory).Where(x => Regex.IsMatch(x.Split("\\/".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).Last(), @"^\d+(\.\d+){0,3}$")).OrderByDescending(x => new Version(x.Split("\\/".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).Last())))
                             {
-                                snippetPaths.Add(Path.Combine(directory, "snippets"));
+                                if (LooksLikeModulePath(versionDirectory, directoryName))
+                                {
+                                    AddSnippetsPathIfPresent(versionDirectory, snippetPaths);
+                                }
                             }
                         }
                     }
@@ -66,6 +64,23 @@ namespace SnippetPx
                         snippetsDirectory.Add(snippetName, filePath);
                     }
                 }
+            }
+        }
+
+        private static bool LooksLikeModulePath(string moduleDirectory, string directoryName)
+        {
+            return File.Exists(Path.Combine(moduleDirectory, directoryName + ".psd1")) ||
+                   File.Exists(Path.Combine(moduleDirectory, directoryName + ".psm1")) ||
+                   File.Exists(Path.Combine(moduleDirectory, directoryName + ".dll"));
+        }
+
+        private static void AddSnippetsPathIfPresent(string moduleDirectory, List<string> snippetPaths)
+        {
+            string snippetsPath = Path.Combine(moduleDirectory, "snippets");
+            if (Directory.Exists(snippetsPath) &&
+                (snippetPaths.IndexOf(snippetsPath) == -1))
+            {
+                snippetPaths.Add(snippetsPath);
             }
         }
 
