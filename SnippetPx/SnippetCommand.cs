@@ -42,7 +42,7 @@ namespace SnippetPx
                         }
                         else
                         {
-                            foreach (string versionDirectory in Directory.EnumerateDirectories(directory).Where(x => ConvertToVersion(x) != null).OrderByDescending(x => ConvertToVersion(x)))
+                            foreach (string versionDirectory in Directory.EnumerateDirectories(directory).Where(x => ConvertToVersion(Path.GetFileName(x)) != null).OrderByDescending(x => ConvertToVersion(Path.GetFileName(x))))
                             {
                                 if (LooksLikeModulePath(versionDirectory, directoryName))
                                 {
@@ -69,12 +69,15 @@ namespace SnippetPx
 
         private static Version ConvertToVersion(string versionString)
         {
-            try
+            if (Regex.IsMatch(versionString, @"^\d+(\.\d+){1,3}"))
             {
-                return new Version(versionString);
-            }
-            catch
-            {
+                try
+                {
+                    return new Version(versionString);
+                }
+                catch
+                {
+                }
             }
             return null;
         }
