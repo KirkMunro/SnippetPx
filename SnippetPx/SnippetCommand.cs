@@ -42,7 +42,7 @@ namespace SnippetPx
                         }
                         else
                         {
-                            foreach (string versionDirectory in Directory.EnumerateDirectories(directory).Where(x => Regex.IsMatch(x.Split("\\/".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).Last(), @"^\d+(\.\d+){0,3}$")).OrderByDescending(x => new Version(x.Split("\\/".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).Last())))
+                            foreach (string versionDirectory in Directory.EnumerateDirectories(directory).Where(x => ConvertToVersion(x) != null).OrderByDescending(x => ConvertToVersion(x)))
                             {
                                 if (LooksLikeModulePath(versionDirectory, directoryName))
                                 {
@@ -65,6 +65,18 @@ namespace SnippetPx
                     }
                 }
             }
+        }
+
+        private static Version ConvertToVersion(string versionString)
+        {
+            try
+            {
+                return new Version(versionString);
+            }
+            catch
+            {
+            }
+            return null;
         }
 
         private static bool LooksLikeModulePath(string moduleDirectory, string directoryName)
