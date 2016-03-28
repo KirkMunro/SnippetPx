@@ -20,21 +20,35 @@ param(
 )
 #region Import each script file matching our filter that is found in the path specified, using a custom sort order.
 
-Get-ChildItem -Path $Path -Filter $Filter `
-    | Sort-Object -Property @(
-        @{
-            Expression = {
-                if (($index = $Order.IndexOf($_.Name)) -ge 0) {
-                    $index
-                } else {
-                    $Order.Count
-                }
+& {
+    $callerSignature = $null
+    if (($callerStackEntry = Get-PSCallStack | Where-Object {$_.Command -eq 'Invoke-Snippet'} | Select-Object -First 1) -and
+        (-not [System.String]::IsNullOrWhitespace($callerStackEntry.ScriptName))) {
+        $callerSignature = Get-AuthenticodeSignature -FilePath $callerStackEntry.ScriptName
+    }
+    Get-ChildItem -Path $Path -Filter $Filter `
+        | Where-Object {
+            ($_.Name -like $Filter) -and
+            (($callerSignature -eq $null) -or
+             ($callerSignature.Status -eq [System.Management.Automation.SignatureStatus]::NotSigned) -or
+             (($callerSignature.Status -eq [System.Management.Automation.SignatureStatus]::Valid) -and
+              ($fileSignature = Get-AuthenticodeSignature -FilePath $_.FullName) -and
+              ($fileSignature.Status -eq [System.Management.Automation.SignatureStatus]::Valid) -and
+              ($fileSignature.SignerCertificate -eq $callerSignature.SignerCertificate)))
+        }
+} | Sort-Object -Property @(
+    @{
+        Expression = {
+            if (($index = $Order.IndexOf($_.Name)) -ge 0) {
+                $index
+            } else {
+                $Order.Count
             }
         }
-        'Name'
-    ) `
-    | ForEach-Object {
-        . $_.FullName
     }
+    'Name'
+) | ForEach-Object {
+    . $_.FullName
+}
 
 #endregion

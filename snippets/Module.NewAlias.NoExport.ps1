@@ -1,6 +1,6 @@
 ﻿<#
 .SYNOPSIS
-    Create a new alias that is internal to a module.
+    Create a new alias that is internal to a module
 .DESCRIPTION
     Create a new internal alias that is associated with a cmdlet or function. This alias is not exported by the module in which it is created. If the alias is optional and provided for convenience only, no error will be raised if the alias cannot be created. If the alias is required and cannot be created (because the command name is already in use), an error will be raised.
 #>

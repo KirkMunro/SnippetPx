@@ -1,6 +1,6 @@
 ﻿<#
 .SYNOPSIS
-    Create a new alias and export it from the module.
+    Create a new alias and export it from the module
 .DESCRIPTION
     Create a new alias that is associated with a cmdlet or function and export the alias from the module in which it is created. If the alias is optional and provided for convenience only, no error will be raised if the alias cannot be created. If the alias is required and cannot be created (because the command name is already in use), an error will be raised.
 #>
