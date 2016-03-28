@@ -37,7 +37,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Management.Automation, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\WindowsPowerShell\3.0\System.Management.Automation.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\WindowsPowerShell\Microsoft.PowerShell.3.ReferenceAssemblies.1.0.0\lib\net4\System.Management.Automation.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -46,12 +46,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExternalScriptItem.cs" />
+    <Compile Include="DiscoverableItemSearchCriteria.cs" />
+    <Compile Include="DiscoverableItemSearcher.cs" />
+    <Compile Include="ExternalScriptItemSearchCriteria.cs" />
     <Compile Include="GetSnippetCommand.cs" />
     <Compile Include="InvokeSnippetCommand.cs" />
+    <Compile Include="DiscoverableItem.cs" />
+    <Compile Include="PowerShellExtensions.cs" />
     <Compile Include="PowerShellInternals.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Snippet.cs" />
-    <Compile Include="SnippetCommand.cs" />
+    <Compile Include="DiscoverableItemNameAmbiguousException.cs" />
+    <Compile Include="DiscoverableItemNotFoundException.cs" />
+    <Compile Include="ExternalScriptItemSearcher.cs" />
+    <Compile Include="SnippetSearchCriteria.cs" />
+    <Compile Include="SnippetSearcher.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

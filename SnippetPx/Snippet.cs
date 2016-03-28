@@ -1,22 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Management.Automation;
 
 namespace SnippetPx
 {
-    public class Snippet
+    [Serializable]
+    public class Snippet : ExternalScriptItem
     {
-        public string Name { get; private set; }
-        public string Path { get; private set; }
-        public string Synopsis { get; set; }
-        public string Description { get; set; }
-        public ScriptBlock ScriptBlock { get; set; }
-        public Snippet(string name, string path)
+        public string Synopsis { get; internal set; } = null;
+        public string Description { get; internal set; } = null;
+        public Snippet(ExternalScriptInfo snippetInfo, string moduleName = null, PSObject helpInfo = null)
+            : base(snippetInfo, moduleName)
         {
-            Name = name;
-            Path = path;
+            if (helpInfo != null)
+            {
+                Synopsis = helpInfo.Properties["Synopsis"]?.Value as string;
+                var descriptionPropertyValue = (helpInfo.Properties["Description"]?.Value as PSObject[])?.Select(x => x.Properties["Text"]?.Value).ToArray();
+                if (descriptionPropertyValue != null)
+                {
+                    Description = string.Join("\r\n", descriptionPropertyValue);
+                }
+            }
         }
     }
 }

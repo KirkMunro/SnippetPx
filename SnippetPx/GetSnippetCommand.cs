@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Management.Automation;
+﻿using System.Management.Automation;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace SnippetPx
 {
@@ -11,7 +9,7 @@ namespace SnippetPx
         "Snippet"
     )]
     [OutputType(typeof(Snippet))]
-    public class GetSnippetCommand : SnippetCommand
+    public class GetSnippetCommand : PSCmdlet
     {
         [Parameter(
             Position = 0,
@@ -19,73 +17,44 @@ namespace SnippetPx
         )]
         [ValidateNotNullOrEmpty()]
         [SupportsWildcards()]
-        public string[] Name { get; set; }
+        public string[] Name { get; set; } = new string[] { "*" };
+
+        [Parameter(
+            Position = 1,
+            HelpMessage = "The name of the module that contains the snippet."
+        )]
+        [ValidateNotNullOrEmpty()]
+        [SupportsWildcards()]
+        public string ModuleName { get; set; }
+
+        [Parameter()]
+        public SwitchParameter NoHelp = false;
+
+        protected override void BeginProcessing()
+        {
+            // If any of the Name parameter values contain a path delimiter (forward or backward slash), throw an exception
+            if (Name.Any(x => Regex.IsMatch(x, @"[\\/]")))
+            {
+                throw new ParameterBindingException(@"Name cannot contain '\' or '/' characters.");
+            }
+
+            // Let the base class do its work
+            base.BeginProcessing();
+        }
 
         protected override void ProcessRecord()
         {
-            List<string> resultSet = new List<string>();
-            if (MyInvocation.BoundParameters.ContainsKey("Name"))
+            // Create our snippet searcher object
+            var snippetSearcher = new SnippetSearcher(MyInvocation.MyCommand.Module);
+
+            // Output any snippets matching the search criteria
+            foreach (var snippet in Name.SelectMany(x => snippetSearcher.FindItem(new SnippetSearchCriteria(x, ModuleName, includeHelpInfo: NoHelp == false, errorIfNotFound : !WildcardPattern.ContainsWildcardCharacters(x) && !WildcardPattern.ContainsWildcardCharacters(ModuleName)))))
             {
-                List<WildcardPattern> patterns = new List<WildcardPattern>();
-                List<string> names = new List<string>();
-                foreach (string name in Name)
-                {
-                    if (WildcardPattern.ContainsWildcardCharacters(name))
-                    {
-                        patterns.Add(new WildcardPattern(name, WildcardOptions.IgnoreCase));
-                    }
-                    else
-                    {
-                        names.Add(name);
-                    }
-                }
-                foreach (string key in snippetsDirectory.Keys)
-                {
-                    if (names.Contains(key, StringComparer.OrdinalIgnoreCase) ||
-                        patterns.Any(p => p.IsMatch(key)))
-                    {
-                        resultSet.Add(key);
-                    }
-                }
-            }
-            else
-            {
-                foreach (string key in snippetsDirectory.Keys)
-                {
-                    resultSet.Add(key);
-                }
-            }
-            foreach (string name in resultSet)
-            {
-                Snippet snippet = new Snippet(name, snippetsDirectory[name] as string);
-                PowerShell ps = PowerShell.Create(RunspaceMode.CurrentRunspace);
-                ps.AddCommand(InvokeCommand.GetCmdlet("Get-Help"));
-                ps.AddParameter("Name", snippetsDirectory[name] as string);
-                foreach (PSObject psObject in ps.Invoke())
-                {
-                    if (psObject.BaseObject is PSCustomObject)
-                    {
-                        snippet.Synopsis = psObject.Properties["Synopsis"].Value as string;
-                        ArrayList descriptionStrings = new ArrayList();
-                        foreach (PSObject psDescriptionObject in psObject.Properties["Description"].Value as PSObject[])
-                        {
-                            descriptionStrings.Add(psDescriptionObject.Properties["Text"].Value);
-                        }
-                        snippet.Description = string.Join("\r\n", descriptionStrings.ToArray());
-                    }
-                }
-                ps.Commands.Clear();
-                ps.AddCommand("Get-Command", true);
-                ps.AddParameter("Name", snippetsDirectory[name] as string);
-                foreach (PSObject psObject in ps.Invoke())
-                {
-                    if (psObject.BaseObject is ExternalScriptInfo)
-                    {
-                        snippet.ScriptBlock = psObject.Properties["ScriptBlock"].Value as ScriptBlock;
-                    }
-                }
                 WriteObject(snippet);
             }
+
+            // Let the base class do its work
+            base.ProcessRecord();
         }
     }
 }
