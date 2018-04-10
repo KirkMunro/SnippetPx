@@ -129,9 +129,29 @@ namespace SnippetPx
 
             // If the discoverable item was not module qualified, we need to look more broadly
 
+            // Where we look depends on the version of PowerShell that is running
+            string currentUserPowerShellBaseFolder;
+            string allUsersPowerShellBaseFolder;
+            string powerShellSubfolder;
+
+            // PowerShell Core on Linux or macOS
+            if (PowerShellInternals.IsUnixPlatform())
+            {
+                currentUserPowerShellBaseFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                allUsersPowerShellBaseFolder = "/usr/local/share";
+                powerShellSubfolder = "powershell";
+            }
+            // PowerShell Core on Windows or Windows PowerShell
+            else
+            {
+                currentUserPowerShellBaseFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments, Environment.SpecialFolderOption.DoNotVerify);
+                allUsersPowerShellBaseFolder = Environment.GetEnvironmentVariable("ProgramFiles");
+                powerShellSubfolder = PowerShellInternals.IsPowerShellCore() ? "PowerShell" : "WindowsPowerShell";
+            }
+
             // Check the current user WindowsPowerShell folder
             rank++;
-            results.AddRange(FindInPath(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments, Environment.SpecialFolderOption.DoNotVerify), "WindowsPowerShell"), searchCriteria));
+            results.AddRange(FindInPath(Path.Combine(currentUserPowerShellBaseFolder, powerShellSubfolder), searchCriteria));
             if (searchCriteria.ReturnFirstItemFound && results.Count > 0)
             {
                 return results;
@@ -143,7 +163,7 @@ namespace SnippetPx
                 rank++;
                 currentCount = results.Count;
             }
-            results.AddRange(FindInPath(Path.Combine(Environment.GetEnvironmentVariable("ProgramFiles"), "WindowsPowerShell"), searchCriteria));
+            results.AddRange(FindInPath(Path.Combine(allUsersPowerShellBaseFolder, powerShellSubfolder), searchCriteria));
             if (searchCriteria.ReturnFirstItemFound && results.Count > 0)
             {
                 return results;

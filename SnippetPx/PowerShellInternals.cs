@@ -12,7 +12,7 @@ namespace SnippetPx
         static BindingFlags publicOrPrivateInstance = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
         static BindingFlags publicOrPrivateStatic   = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static;
 
-        static internal Version GetPowerShellVersion()
+        static internal Hashtable GetPSVersionTable()
         {
             // The PowerShell version is easy to access in PowerShell via the PSVersionTable variable;
             // however, to improve performance we need to be able to look up the version without using
@@ -23,7 +23,22 @@ namespace SnippetPx
 
             MethodInfo getPSVersionTableMethod = psVersionInfoType.GetMethod("GetPSVersionTable", publicOrPrivateStatic);
 
-            return (getPSVersionTableMethod?.Invoke(null, publicOrPrivateStatic, null, new object[0], null) as Hashtable)?["PSVersion"] as Version;
+            return getPSVersionTableMethod?.Invoke(null, publicOrPrivateStatic, null, new object[0], null) as Hashtable;
+        }
+
+        static internal bool IsPowerShellCore()
+        {
+            return string.Compare(GetPSVersionTable()?["PSEdition"] as string, "Core", true) == 0;
+        }
+
+        static internal bool IsUnixPlatform()
+        {
+            return string.Compare(GetPSVersionTable()?["Platform"] as string, "Unix", true) == 0;
+        }
+
+        static internal Version GetPowerShellVersion()
+        {
+            return GetPSVersionTable()?["PSVersion"] as Version;
         }
 
         internal static object GetExecutionContext(this Runspace runspace)
